@@ -12,25 +12,27 @@ function ksiazkaKolorTla(ksiazkaZapisana) {
 
 var ksiazkaZapisana;
 async function wlaczKsiazkaDetale() {
-    const ksiazki=await getBooks();
-    const ksiazkaSzukana=new URLSearchParams(window.location.search);
+    const ksiazki = await getBooks();
+    const ksiazkaSzukana = new URLSearchParams(window.location.search);
 
-    ksiazkaZapisana=ksiazki.find(szukana =>
-        szukana.slug===ksiazkaSzukana.get("tytul"));
+    ksiazkaZapisana = ksiazki.find(szukana => szukana.slug === ksiazkaSzukana.get("tytul"));
 
     if (!ksiazkaZapisana) {
-        document.getElementById("ksiazkaDetale").textContent="Nie znaleziono książki";
+        document.getElementById("ksiazkaDetale").textContent = "Nie znaleziono książki";
         return;
     }
 
-    document.getElementById("ksiazkaDetale").innerHTML=ksiazkaDetale(
-        ksiazkaZapisana.title,ksiazkaZapisana.author,ksiazkaZapisana.simple_thumb,
-        ksiazkaZapisana.epoch,ksiazkaZapisana.kind,ksiazkaZapisana.genre);
+    document.getElementById("ksiazkaDetale").innerHTML = ksiazkaDetale(
+        ksiazkaZapisana.title, ksiazkaZapisana.author, ksiazkaZapisana.simple_thumb,
+        ksiazkaZapisana.epoch, ksiazkaZapisana.kind, ksiazkaZapisana.genre);
 
     ksiazkaKolorTla(ksiazkaZapisana);
 
-    //document.getElementById("wyszukiwarka-textbox").value=ksiazkaZapisana.title
-    document.getElementById("wyszukiwarka-textbox").placeholder=ksiazkaZapisana.title;
+    //document.getElementById("wyszukiwarka-textbox").value = ksiazkaZapisana.title
+    document.getElementById("wyszukiwarka-textbox").placeholder = ksiazkaZapisana.title;
+
+    const ksiazkaDodajDoKoszykaZmienna = document.getElementById("ksiazkaDetaleDodajDoKoszyka");
+    if (ksiazkaDodajDoKoszykaZmienna) {ksiazkaDodajDoKoszykaZmienna.addEventListener("click", ksiazkaDodajDoKoszyka);}
 }
 
 wlaczKsiazkaDetale();
@@ -41,7 +43,7 @@ motywZmiana.addEventListener("click", () => {
     ksiazkaKolorTla(ksiazkaZapisana);
 });
 
-function ksiazkaDetale(tytul,autor,okladka,epoka,rodzaj,gatunek) {
+function ksiazkaDetale(tytul, autor, okladka, epoka, rodzaj, gatunek) {
     return `
         <h3 class="tytul" id="ksiazkaDetaleTytul">${tytul}</h3>
         <a class="ksiazkaDetaleLinki" id="ksiazkaDetaleAutor"href="./wyszukiwarka.html?filter=${autor}">
@@ -77,4 +79,10 @@ function ksiazkaDetale(tytul,autor,okladka,epoka,rodzaj,gatunek) {
             Dodaj książkę do koszyka
         </button>
     `;
+}
+
+function ksiazkaDodajDoKoszyka() {
+    const koszyk = koszykPobierz();
+    koszyk.push(ksiazkaZapisana);
+    koszykZapisz(koszyk);
 }
