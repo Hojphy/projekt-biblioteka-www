@@ -1,4 +1,15 @@
 const mainContent = document.querySelector('main');
+const browserList = document.getElementById("browserList");
+const pagerElement = document.getElementById("browserPager");
+const pagesElement = document.getElementById("browserPagerPages");
+const prevButton = document.getElementById('pagerPrev');
+const nextButton = document.getElementById('pagerNext');
+
+const ITEMS_PER_PAGE = 15;
+
+let currentPage = 1;
+let pageCount;
+let filteredBooksJSON;
 // ======= Pobranie parametrów z URL =======
 
 const params = new URLSearchParams(window.location.search);
@@ -21,16 +32,9 @@ const filter = params.get('filter');
 const subfilter = params.get('subfilter');
 
 if (subfilter) {
-    const heading = document.createElement('h1');
-    heading.textContent = `Szczegóły dla: "${subfilter}"`;
-    mainContent.prepend(heading);
-
-    initDetailedList(filter, subfilter);
+    initFilteredBookList(filter, subfilter);
 }
 else if (filter) {
-    const heading = document.createElement('h1');
-    heading.textContent = `Wybrano filtr: "${filter}"`;
-    mainContent.prepend(heading);
     initFilterList(filter);
 }
 
@@ -80,11 +84,107 @@ function filterHTMLString(name) {
     `;
 }
 
+function pageClick(e)
+{
+    const clickedPage = parseInt(e.target.innerText);
+    currentPage = clickedPage;
+
+    browserList.innerHTML = "";
+
+    renderPage(currentPage);
+    initPager(filteredBooksJSON.length);
+}
+
+function addPage(number)
+{
+    const newPage = document.createElement("li");
+    newPage.innerText = number;
+    newPage.classList.add("page-number");
+
+    if(number == currentPage)
+        newPage.classList.add("currentPage");
+    else
+        newPage.addEventListener("click", pageClick);
+
+    nextButton.insertAdjacentElement('beforebegin', newPage);
+}
+
+function initPager(resultCount)
+{
+    const oldPages = document.querySelectorAll(".page-number");
+    oldPages.forEach(page => page.remove());
+
+    const pageCount = Math.ceil(resultCount/ITEMS_PER_PAGE);
+
+    if (pageCount <= 1) return;
+
+    const maxVisiblePages = 10;
+    let startPage = 1;
+    let endPage = pageCount;
+
+    if (pageCount > maxVisiblePages) {
+        startPage = currentPage - 4;
+        endPage = currentPage + 5;
+
+        if (startPage < 1) {
+            startPage = 1;
+            endPage = maxVisiblePages;
+        }
+
+        if (endPage > pageCount) {
+            endPage = pageCount;
+            startPage = pageCount - maxVisiblePages + 1;
+        }
+    }
+
+    for(let i = startPage; i <= endPage; i++)
+    {
+        addPage(i);
+    }
+
+    const totalPages = Math.ceil(resultCount / ITEMS_PER_PAGE);
+
+    if (currentPage === 1) {
+        pagerPrev.classList.add("disabled");
+    } else {
+        pagerPrev.classList.remove("disabled");
+    }
+
+    if (currentPage === totalPages || totalPages <= 1) {
+        pagerNext.classList.add("disabled");
+    } else {
+        pagerNext.classList.remove("disabled");
+    }
+}
+
 async function initBookList(titleName)
 {
-    const filtersJSON = await getBooksByTitle(titleName);
-    const browserList = document.getElementById("browserList");
-    filtersJSON.forEach(item => {
+    browserList.innerHTML = "";
+    filteredBooksJSON = await getBooksByTitle(titleName);
+
+    renderPage(currentPage);
+    initPager(filteredBooksJSON.length);
+   
+}
+
+async function initFilteredBookList(filter, subfilter)
+{
+    browserList.innerHTML = "";
+    filteredBooksJSON = await getBooksByChosenFilter(filter, subfilter);
+
+    renderPage(currentPage);
+    initPager(filteredBooksJSON.length);
+   
+}
+
+async function renderPage(page)
+{
+    const startIdx = (page-1) * ITEMS_PER_PAGE;
+    const endIdx = startIdx + ITEMS_PER_PAGE;
+
+    const booksToShow = filteredBooksJSON.slice(startIdx, endIdx);
+
+    booksToShow.forEach(item => {
         const filterElement = document.createElement("div");
         filterElement.classList.add("browserElement");
         filterElement.innerHTML = browserElementHTMLString(item.simple_thumb, item.title, item.author);
@@ -97,22 +197,19 @@ async function initBookList(titleName)
     });
 }
 
-async function initDetailedList(filter, subfilter) {
-    const detailedJSON = await getBooksByChosenFilter(filter, subfilter);
-    console.log(detailedJSON);
+async function initFilterList(filterName)
+{
+    const filtersJSON = await getFilterCategoriesJSON(filterName);
     const browserList = document.getElementById("browserList");
-    
-    browserList.innerHTML = ""; 
-
-    detailedJSON.forEach(item => {
-        const itemElement = document.createElement("div");
-        itemElement.classList.add("browserElement", "finalItem");
-        itemElement.innerHTML = browserElementHTMLString(item.simple_thumb, item.title, item.author);
-        itemElement.addEventListener('click', () => {
-            //TODO: strony konkretnych ksiazek
+    filtersJSON.forEach(filter => {
+        const filterElement = document.createElement("div");
+        filterElement.classList.add("browserElement");
+        filterElement.innerHTML = filterHTMLString(filter.name);
+        filterElement.dataset.href = filter.href;
+        filterElement.addEventListener('click', () => {
+            window.location.href = `./wyszukiwarka.html?filter=${encodeURIComponent(filterName)}&subfilter=${encodeURIComponent(filter.name)}`;
         });
-        
-        browserList.appendChild(itemElement);
+        browserList.appendChild(filterElement);
     });
 }
 
@@ -138,3 +235,23 @@ async function getBooksByChosenFilter(filter, subfilter)
         return element_filter == cleared_subfilter;
     });
 }
+
+pagerPrev.addEventListener("click", () => {
+    if(currentPage <= 1) return;
+    currentPage--;
+
+    browserList.innerHTML = "";
+
+    renderPage(currentPage);
+    initPager(filteredBooksJSON.length);
+});
+
+pagerNext.addEventListener("click", () => {
+    if(currentPage >= filteredBooksJSON.length/ITEMS_PER_PAGE) return;
+    currentPage++;
+
+    browserList.innerHTML = "";
+
+    renderPage(currentPage);
+    initPager(filteredBooksJSON.length);
+});

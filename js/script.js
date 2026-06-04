@@ -152,3 +152,21 @@ function ksiazkaHTMLString(img, title, author) {
         <p class="autor">${author}</p>
     `;
 }
+
+// ========== Znikająca wyszukiwarka ==========
+
+const wyszukiwarka = document.getElementById("wyszukiwarka");
+let ostatniScrollY = window.scrollY;
+
+window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+
+    //Sprawdzenie, czy był scroll w dół czy w góre i czy scroll był dość duży, ignoruje bardzo małe ruchy
+    if(scrollY > ostatniScrollY && (scrollY - ostatniScrollY) > 5) {
+        wyszukiwarka.classList.add("hidden");
+    } else if(scrollY < ostatniScrollY && (ostatniScrollY - scrollY) > 5) {
+        wyszukiwarka.classList.remove("hidden");
+    }
+
+    ostatniScrollY = scrollY;
+})
