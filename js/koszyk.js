@@ -6,6 +6,7 @@ const koszykKsiazki = koszykPobierz();
 
 function zaladujKoszyk() {
     document.querySelectorAll(".koszykElement").forEach(element => element.remove());
+    document.querySelectorAll(".koszykWypozycz").forEach(element => element.remove());
     document.getElementById("koszyk").innerHTML = "";
     for (let i = 0; i < koszykKsiazki.length; i++) {
         const nowyDiv = document.createElement("div");
