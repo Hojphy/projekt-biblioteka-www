@@ -121,54 +121,6 @@ main.active {
 
 /* ========== ID ========== */
 
-/* === Podstrona wyszukiwarka === */
-
-#browser main {
-    display: flex;
-    flex-direction: column;
-}
-
-#browserPager {
-    width: 100%;
-    transition: transform 0.3s ease-in-out;
-    z-index: 1;
-    position: fixed;
-    bottom: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#browserPager.hidden {
-    transform: translateY(250%);
-}
-
-#browserPager ul {
-    display: flex;
-    gap: 10px;
-    margin: 0;
-    justify-content: center;
-}
-
-#browserPager li {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-}
-
-#browserPager li:hover, li.currentPage {
-    background-color: var(--color-silver);
-    border-radius: 30px;
-}
-
-#browserPagerPages {
-    background-color: var(--container);
-    padding: 5px;
-    border-radius: 50px;
-}
-
 /* === Header === */
 
 #head header {
@@ -176,19 +128,6 @@ main.active {
     justify-content: space-between;
     align-items: center;
     height: 70px;
-}
-
-/* === Polecane === */
-
-#polecane {
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-}
-
-#polecane h1 {
-    flex: 0 0 100%;
-    text-align: center;
 }
 
 /* === Wyszukiwarka === */
@@ -302,33 +241,6 @@ main.active {
     text-decoration: underline;
 }
 
-/* === Lista elementow wyszukiwarki === */
-
-#browserList {
-    display: flex;
-    flex-direction: column;
-    row-gap: 5px;
-    margin-top: 80px;
-    margin-bottom: 200px;
-}
-
-/* === Koszyk === */
-#koszyk {
-    display: flex;
-    flex-direction: row; 
-    flex-wrap: wrap;     
-    justify-content: center; 
-    gap: 20px;
-    margin-top: 80px;
-    margin-bottom: 200px;
-}
-
-#koszykNaglowek {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-
 /* ========== Klasy ========== */
 
 /* === Książka === */
@@ -381,34 +293,6 @@ main.active {
     transform: scale(1.1);
 }
 
-.ksiazki_grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 10px;
-    width: 60%;
-    margin: 0 auto;
-}
-
-
-.browserElement {
-    display: flex;
-    flex-direction: row;
-    column-gap: 50px;
-    border: 1px solid var(--outline);
-    padding: 25px;
-    cursor: pointer;
-    max-height: 200px;
-}
-
-.browserElement img{
-    max-height: 150px;
-}
-
-.bookInfo {
-    display: flex;
-    flex-direction: column;
-}
-
 /* === Sticky === */
 
 .sticky {
@@ -432,62 +316,6 @@ main.active {
     opacity: 20%;
 }
 
-/* === Koszyk === */
 
-.koszykElement {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-}
-
-.koszykElement .ksiazka {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 200px;
-    margin-bottom: 15px; 
-}
-
-
-.koszykUsunZawartosc {
-    display: block;
-    padding: 8px 16px;
-    text-align: center;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    height: 40px;
-}
-.koszykUsunZawartosc:hover {
-    background-color: rgb(200,0,0);
-    cursor: pointer;
-}
-
-.koszykMain {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-/* --- Przycisk na wypożyczanie książek --- */
-.koszykWypozycz {
-    display: block;
-    padding: 8px 16px;
-    text-align: center;
-    height: 40px;
-    margin: 20px;
-    background-color: var(--background-button);
-    color: var(--color-white);
-}
-
-.koszykWypozycz:hover {
-    cursor: pointer;
-}
 
 /* ========== Animacje ========== */
