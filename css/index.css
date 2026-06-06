@@ -1,0 +1,26 @@
+/* ===== Strona główna ===== */
+
+/* === Id === */
+
+/* === Polecane === */
+
+#polecane {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+#polecane h1 {
+    flex: 0 0 100%;
+    text-align: center;
+}
+
+/* === Klasy === */
+
+.ksiazki_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    width: 60%;
+    margin: 0 auto;
+}
