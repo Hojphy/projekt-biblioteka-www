@@ -46,9 +46,12 @@ function zaladujKoszyk() {
         wyporzyczButton.classList.add("koszykWypozycz");
         wyporzyczButton.addEventListener("click", () => { wypozycz(); });
         document.getElementById("main").appendChild(wyporzyczButton);
+    }else{
+        document.getElementById("main").innerHTML += "<p class='KoszykPusty'>Twój koszyk jest pusty</p>";
     }
 }
 
+// todo: funkcja wypożyczająca książki, narazie placeholder
 function wypozycz() {
     alert("Wypożyczono książki");
 }
