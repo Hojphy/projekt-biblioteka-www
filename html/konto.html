@@ -12,6 +12,7 @@
     <title>Lekturoteka</title>
 
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/konto.css">
     <script defer src="../js/script.js"></script>
     <script defer src="../js/konto.js"></script>
 
@@ -40,7 +41,38 @@
     <!-- === Konto === -->
 
     <main id="main">
-        <div id="konto">Konto</div>
+        <div id="konto">
+            <div id="widok-niezalogowany">
+                <div class="formularz-karta">
+                    <h2>Zaloguj się</h2>
+                    <input type="text" placeholder="Login lub email" id="login-input">
+                    <input type="password" placeholder="Hasło" id="haslo-input">
+                    <button id="zaloguj-btn">Zaloguj</button>
+                </div>
+
+                <div class="formularz-karta">
+                    <h2>Zarejestruj się</h2>
+                    <input type="text" placeholder="Login" id="rej-login-input">
+                    <input type="email" placeholder="Email" id="rej-email-input">
+                    <input type="password" placeholder="Hasło" id="rej-haslo-input">
+                    <button id="zarejestruj-btn">Zarejestruj</button>
+                </div>
+            </div>
+
+            <div id="widok-zalogowany" class="ukryty">
+                <div class="konto-info">
+                    <p><strong>Twój login:</strong> login</p>
+                    <p><strong>Email:</strong> email</p>
+                </div>
+
+                <h3>Twoje wypożyczenia</h3>
+                <div class="ksiazki_grid">
+                    <p>Brak wypożyczonych książek.</p>
+                </div>
+
+                <button id="wyloguj-btn">Wyloguj się</button>
+            </div>
+        </div>
     </main>
     
 </body>

@@ -171,7 +171,7 @@ main.active {
 
 /* === Header === */
 
-#head header {
+#naglowek header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -246,20 +246,20 @@ main.active {
     transform: translateX(-50%);  
 }
 
-#headIkonyPoPrawej {
+#naglowekIkonyPoPrawej {
     min-width: 85px;
     display: flex;
     gap: 15px;
 }
 
-#menu-icon:hover {
+#menu-ikona:hover {
     cursor:pointer;
 }
 
 #koszykIkona:hover {cursor:pointer;}
 #kontoIkona:hover {cursor:pointer;}
 
-#mode-switch:hover {
+#zmiana-trybu:hover {
     cursor:pointer;
 }
 

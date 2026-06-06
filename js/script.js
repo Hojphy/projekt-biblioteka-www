@@ -9,10 +9,10 @@ function randomInt(max, min = 0) {
 class Naglowek extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
-            <div id="head" class="sticky">
+            <div id="naglowek" class="sticky">
                 <header>
                     <!-- Ikony po lewej -->
-                    <span id="menu-icon" alt="Menu" class="material-symbols-outlined unselectable">menu</span>
+                    <span id="menu-ikona" alt="Menu" class="material-symbols-outlined unselectable">menu</span>
 
                     <!-- Ikony po środku -->
                     <a href="./index.html" style="text-decoration: none; color: inherit;">
@@ -20,10 +20,10 @@ class Naglowek extends HTMLElement {
                     </a>
 
                     <!-- Ikony po prawej -->
-                    <span id="headIkonyPoPrawej">
+                    <span id="naglowekIkonyPoPrawej">
                         <span id="koszykIkona" alt="Koszyk" class="material-symbols-outlined unselectable">shopping_basket</span>
                         <span id="kontoIkona" alt="Konto" class="material-symbols-outlined unselectable">account_circle</span>
-                        <span id="mode-switch" alt="Zmiana motywu" class="material-symbols-outlined unselectable"></span>
+                        <span id="zmiana-trybu" alt="Zmiana motywu" class="material-symbols-outlined unselectable"></span>
                     </span>
                 </header>
              </div>
@@ -64,10 +64,10 @@ customElements.define('komponent-wyszukiwarka', Wyszukiwarka);
 
 // ========== Przyciski na sticky ==========
 
-const menuButton = document.getElementById("menu-icon");
+const menuButton = document.getElementById("menu-ikona");
 const koszykPrzycisk = document.getElementById("koszykIkona");
 const kontoPrzycisk = document.getElementById("kontoIkona");
-const modeSwitchButton = document.getElementById("mode-switch");
+const zmianaTrybuPrzycisk= document.getElementById("zmiana-trybu");
 const nawigacja = document.getElementById("nawigacja");
 const main = document.getElementById("main");
 
@@ -77,12 +77,12 @@ if(menuButton) {
     menuButton.addEventListener("click", menuClick);
 }
 
-if (koszykPrzycisk) {koszykPrzycisk.addEventListener("click", koszykKlikniecie);}
-if (kontoPrzycisk) {kontoPrzycisk.addEventListener("click", kontoKlikniecie);}
+if (koszykPrzycisk) {koszykPrzycisk.addEventListener("click", koszykClick);}
+if (kontoPrzycisk) {kontoPrzycisk.addEventListener("click", kontoClick);}
 
-if(modeSwitchButton) {
-    modeSwitchButton.addEventListener("click", modeSwitchClick);
-    initThemeIcon();
+if(zmianaTrybuPrzycisk) {
+    zmianaTrybuPrzycisk.addEventListener("click", zmianaTrybuClick);
+    initIkonaNaglowka();
 }
 
 // === Funkcje po kliknięciu przycisku ===
@@ -92,28 +92,28 @@ function menuClick() {
     main.classList.toggle("active");
 }
 
-function koszykKlikniecie() {window.location.href = "./koszyk.html";}
-function kontoKlikniecie() {window.location.href = "./konto.html";}
+function koszykClick() {window.location.href = "./koszyk.html";}
+function kontoClick() {window.location.href = "./konto.html";}
 
-function initThemeIcon() {
+function initIkonaNaglowka() {
     const theme = localStorage.getItem("theme");
     if(theme != null)
-        modeSwitchButton.innerHTML = theme == "dark" ? "dark_mode" : "light_mode";
+        zmianaTrybuPrzycisk.innerHTML = theme == "dark" ? "dark_mode" : "light_mode";
     else
-        modeSwitchButton.innerHTML = "dark_mode";
+        zmianaTrybuPrzycisk.innerHTML = "dark_mode";
 }
 
-function modeSwitchClick() {
+function zmianaTrybuClick() {
     const theme = localStorage.getItem("theme");
     document.documentElement.classList.toggle("dark");
     document.documentElement.classList.toggle("light");
     localStorage.setItem("theme", theme == "dark" ? "light" : "dark");
-    initThemeIcon();
+    initIkonaNaglowka();
 }
 
 // ========== Książki ==========
 
-async function getData(what) {
+async function getDane(what) {
     const url = `https://wolnelektury.pl/api/${what}`;
     const data = await fetch(url);
     const json = await data.json();
@@ -163,9 +163,9 @@ window.addEventListener("scroll", () => {
 
     //Sprawdzenie, czy był scroll w dół czy w góre i czy scroll był dość duży, ignoruje bardzo małe ruchy
     if(scrollY > ostatniScrollY && (scrollY - ostatniScrollY) > 5) {
-        wyszukiwarka.classList.add("hidden");
+        wyszukiwarka.classList.add("ukryty");
     } else if(scrollY < ostatniScrollY && (ostatniScrollY - scrollY) > 5) {
-        wyszukiwarka.classList.remove("hidden");
+        wyszukiwarka.classList.remove("ukryty");
     }
 
     ostatniScrollY = scrollY;
