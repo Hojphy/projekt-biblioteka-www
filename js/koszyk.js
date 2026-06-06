@@ -6,6 +6,7 @@ const koszykKsiazki = koszykPobierz();
 
 function zaladujKoszyk() {
     document.querySelectorAll(".koszykElement").forEach(element => element.remove());
+    document.querySelectorAll(".koszykWypozycz").forEach(element => element.remove());
     document.getElementById("koszyk").innerHTML = "";
     for (let i = 0; i < koszykKsiazki.length; i++) {
         const nowyDiv = document.createElement("div");
@@ -45,9 +46,12 @@ function zaladujKoszyk() {
         wyporzyczButton.classList.add("koszykWypozycz");
         wyporzyczButton.addEventListener("click", () => { wypozycz(); });
         document.getElementById("main").appendChild(wyporzyczButton);
+    }else{
+        document.getElementById("main").innerHTML += "<p class='KoszykPusty'>Twój koszyk jest pusty</p>";
     }
 }
 
+// todo: funkcja wypożyczająca książki, narazie placeholder
 function wypozycz() {
     alert("Wypożyczono książki");
 }
