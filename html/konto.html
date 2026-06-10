@@ -47,33 +47,47 @@
                     <h2>Zaloguj się</h2>
                     <input type="text" placeholder="Login lub email" id="login-input">
                     <input type="password" placeholder="Hasło" id="haslo-input">
-                    <button id="zaloguj-btn">Zaloguj</button>
+                    <button id="zaloguj-btn" class="przycisk">Zaloguj</button>
                 </div>
 
                 <div class="formularz-karta">
                     <h2>Zarejestruj się</h2>
                     <input type="text" placeholder="Login" id="rej-login-input">
-                    <input type="email" placeholder="Email" id="rej-email-input">
                     <input type="password" placeholder="Hasło" id="rej-haslo-input">
-                    <button id="zarejestruj-btn">Zarejestruj</button>
+                    <button id="zarejestruj-btn" class="przycisk">Zarejestruj</button>
                 </div>
             </div>
 
             <div id="widok-zalogowany" class="ukryty">
-                <div class="konto-info">
-                    <p><strong>Twój login:</strong> login</p>
-                    <p><strong>Email:</strong> email</p>
-                </div>
+                <main id="sekcje-konto">
+                    <section id="lewa-sekcja-konto">
+                        <div class="konto-info">
+                            <h3>Konto</h3>
+                            <p id="konto-info-login"><strong>Twój login:</strong> login</p>
+                        </div>
+                    </section>
 
-                <h3>Twoje wypożyczenia</h3>
-                <div class="ksiazki_grid">
-                    <p>Brak wypożyczonych książek.</p>
-                </div>
-
-                <button id="wyloguj-btn">Wyloguj się</button>
+                    <section id="prawa-sekcja-konto">
+                        <div class="wypozyczenia">
+                            <div id="konto-wypozyczone-naglowek">
+                                <h3>Twoje wypożyczenia</h3>
+                                <p>POKAŻ WSZYSTKIE</p>
+                            </div>
+                            <div id="konto-wypozyczone" class="ksiazki_grid">
+                                <p>Brak wypożyczonych książek.</p>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+                <section class="opcje-konto">
+                    <h3>Opcje konta</h3>
+                    <button id="wyloguj-btn" class="czerwony-przycisk">Wyloguj się</button>
+                    <button id="usun-konto-btn" class="czerwony-przycisk">Usuń konto</button>
+                </section>
             </div>
         </div>
     </main>
-    
+
+    <komponent-powiadomienia></komponent-powiadomienia>
 </body>
 </html>

@@ -62,6 +62,14 @@ class Wyszukiwarka extends HTMLElement {
 
 customElements.define('komponent-wyszukiwarka', Wyszukiwarka);
 
+class Powiadomienia extends HTMLElement {
+    connectedCallback() {
+        this.innerHTML = `<div id="widok-powiadomienia"></div>`;
+    }
+}
+
+customElements.define('komponent-powiadomienia', Powiadomienia);
+
 // ========== Przyciski na sticky ==========
 
 const menuButton = document.getElementById("menu-ikona");
@@ -121,27 +129,27 @@ async function getDane(what) {
 }
 
 async function getBooks() {
-    const json = await getData("books");
+    const json = await getDane("books");
     return json;
 }
 
 async function getGenres() {
-    const json = await getData("genres");
+    const json = await getDane("genres");
     return json;
 }
 
 async function getEpochs() {
-    const json = await getData("epochs");
+    const json = await getDane("epochs");
     return json;
 }
 
 async function getKinds() {
-    const json = await getData("kinds");
+    const json = await getDane("kinds");
     return json;
 }
 
 async function getThemes() {
-    const json = await getData("themes");
+    const json = await getDane("themes");
     return json;
 }
 
@@ -153,12 +161,32 @@ function ksiazkaHTMLString(img, title, author) {
     `;
 }
 
+// ========== Powiadomienia ==========
+
+function pokazPowiadomienie(wiadomosc, typ="sukces") {
+    const kontener = document.getElementById('widok-powiadomienia');
+    
+    const nowePowiadomienie = document.createElement('div');
+    nowePowiadomienie.classList.add('powiadomienie');
+    nowePowiadomienie.classList.add(typ);
+    
+    nowePowiadomienie.innerText = wiadomosc;
+    
+    kontener.appendChild(nowePowiadomienie);
+    
+    setTimeout(function() {
+        nowePowiadomienie.remove();
+    }, 3000);
+}
+
+
 // ========== Znikająca wyszukiwarka ==========
 
 const wyszukiwarka = document.getElementById("wyszukiwarka");
 let ostatniScrollY = window.scrollY;
 
 window.addEventListener("scroll", () => {
+    if(wyszukiwarka === null) return;
     const scrollY = window.scrollY;
 
     //Sprawdzenie, czy był scroll w dół czy w góre i czy scroll był dość duży, ignoruje bardzo małe ruchy
