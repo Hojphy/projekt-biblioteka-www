@@ -73,7 +73,7 @@
     max-height: 150px;
 }
 
-.bookInfo {
+.ksiazkaInfo {
     display: flex;
     flex-direction: column;
 }

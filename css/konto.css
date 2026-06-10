@@ -78,22 +78,28 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
 }
 
 #lewa-sekcja-konto, #prawa-sekcja-konto {
-    width: 50%;
+    min-width: 320px;
+    max-width: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .wypozyczenia, .konto-info, .opcje-konto {
     background-color: var(--container);
     padding: 20px;
     border-radius: 20px;
-    width: 70%;
+    width: 100%;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .opcje-konto {
@@ -104,18 +110,19 @@
     max-width: 600px;
 }
 
-#wypozyczona-ksiazka, #wypozyczona-ksiazka img {
-    max-width: 18vh;
+.wypozyczona-ksiazka, .wypozyczona-ksiazka img {
+    max-width: 120px;
 }
 
 #konto-wypozyczone {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(18vh, 1fr));
-    gap: 10px;
-    width: 60%;
-    margin: 0 auto;
-    max-height: 70vh;
-    overflow: hidden;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    width: 100%;
+    margin: 15px auto 0 auto;
+    max-height: 450px;
+    overflow-y: auto;
+    padding-right: 5px;
 }
 
 #konto-wypozyczone-naglowek {

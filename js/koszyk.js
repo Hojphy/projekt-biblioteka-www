@@ -88,11 +88,12 @@ function wypozycz() {
 
     localStorage.setItem(kluczWypozyczen, JSON.stringify(listaKsiazek.concat(noweKsiazki)));
 
+    pokazPowiadomienie(`Pomyślnie wypożyczono ${pomyslne}/${koszykKsiazki.length} książek.`, "sukces");
+
     koszykKsiazki = [];
     koszykZapisz(koszykKsiazki);
     zaladujKoszyk();
 
-    pokazPowiadomienie(`Pomyślnie wypożyczono ${pomyslne}/${koszykKsiazki.length} książek.`, "sukces");
 }
 
 

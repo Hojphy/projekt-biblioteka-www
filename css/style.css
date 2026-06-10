@@ -148,7 +148,7 @@ main.active {
     z-index: 1;
 }
 
-#wyszukiwarka.hidden {
+#wyszukiwarka.ukryty {
     transform: translateY(-100%);
 }
 
@@ -207,7 +207,7 @@ main.active {
     cursor: pointer;
 }
 
-#mode-switch:hover {
+#zmiana-trybu:hover {
     cursor: pointer;
 }
 
@@ -373,7 +373,7 @@ main.active {
 
 /* === Sticky === */
 
-.sticky {
+.lepkie {
     position: sticky;
     top: 0;
     padding: 0px 25px;
@@ -383,14 +383,14 @@ main.active {
     box-shadow: 0 -3px 6px var(--shadow);
 }
 
-.unselectable {
+.niezaznaczalne {
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
 }
 
-.disabled {
+.wylaczone {
     opacity: 20%;
 }
 

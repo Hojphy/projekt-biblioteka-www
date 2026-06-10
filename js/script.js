@@ -9,10 +9,10 @@ function randomInt(max, min = 0) {
 class Naglowek extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
-            <div id="naglowek" class="sticky">
+            <div id="naglowek" class="lepkie">
                 <header>
                     <!-- Ikony po lewej -->
-                    <span id="menu-ikona" alt="Menu" class="material-symbols-outlined unselectable">menu</span>
+                    <span id="menu-ikona" alt="Menu" class="material-symbols-outlined niezaznaczalne">menu</span>
 
                     <!-- Ikony po środku -->
                     <a href="./index.html" style="text-decoration: none; color: inherit;">
@@ -21,9 +21,9 @@ class Naglowek extends HTMLElement {
 
                     <!-- Ikony po prawej -->
                     <span id="naglowekIkonyPoPrawej">
-                        <span id="koszykIkona" alt="Koszyk" class="material-symbols-outlined unselectable">shopping_basket</span>
-                        <span id="kontoIkona" alt="Konto" class="material-symbols-outlined unselectable">account_circle</span>
-                        <span id="zmiana-trybu" alt="Zmiana motywu" class="material-symbols-outlined unselectable"></span>
+                        <span id="koszykIkona" alt="Koszyk" class="material-symbols-outlined niezaznaczalne">shopping_basket</span>
+                        <span id="kontoIkona" alt="Konto" class="material-symbols-outlined niezaznaczalne">account_circle</span>
+                        <span id="zmiana-trybu" alt="Zmiana motywu" class="material-symbols-outlined niezaznaczalne"></span>
                     </span>
                 </header>
              </div>
