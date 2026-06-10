@@ -33,6 +33,7 @@ function zaladujKoszyk() {
             koszykKsiazki.splice(i, 1);
             koszykZapisz(koszykKsiazki);
             zaladujKoszyk();
+            pokazPowiadomienie("Książka została usunięta z koszyka.", "sukces");
         });
         ksiazkaDiv.addEventListener("click", () => {
             window.location.href = `./ksiazka.html?tytul=${koszykKsiazki[i].slug}`;
