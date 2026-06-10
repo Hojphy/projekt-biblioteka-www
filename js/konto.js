@@ -2,10 +2,10 @@ const widokNiezalogowany = document.getElementById('widok-niezalogowany');
 const widokZalogowany = document.getElementById('widok-zalogowany');
 
 document.getElementById('zarejestruj-btn').addEventListener('click', function() {
-    let login = document.getElementById('rej-login-input').value;
-    let haslo = document.getElementById('rej-haslo-input').value;
+    let login = document.getElementById('rej-login-input');
+    let haslo = document.getElementById('rej-haslo-input');
 
-    if (login === "" || haslo === "") {
+    if (login.value === "" || haslo.value === "") {
         pokazPowiadomienie("Wypełnij wszystkie pola.", "blad");
         return;
     }
@@ -18,15 +18,15 @@ document.getElementById('zarejestruj-btn').addEventListener('click', function() 
     }
 
     for (let i = 0; i < uzytkownicy.length; i++) {
-        if (uzytkownicy[i].login === login) {
+        if (uzytkownicy[i].login === login.value) {
             pokazPowiadomienie("Taki login jest juz zajęty.", "blad");
             return;
         }
     }
 
     let nowyUzytkownik = {
-        login: login,
-        haslo: haslo
+        login: login.value,
+        haslo: haslo.value
     };
     uzytkownicy.push(nowyUzytkownik);
 
@@ -34,8 +34,8 @@ document.getElementById('zarejestruj-btn').addEventListener('click', function() 
     
     pokazPowiadomienie("Konto utworzone. Możesz się teraz zalogować.", "sukces");
     
-    login = "";
-    haslo = "";
+    login.value = "";
+    haslo.value = "";
 });
 
 document.getElementById('zaloguj-btn').addEventListener('click', function() {
@@ -84,11 +84,13 @@ function wylogujUzytkownika() {
     localStorage.setItem("aktualnyUzytkownik", "");
     wyczyscKsiazki();
     aktualizujWidokKonta();
+    aktualizujIkoneAdmina();
 }
 
 function aktualizujWidokKonta() {
     const stan = localStorage.getItem("zalogowany");
     if (stan === "tak") {
+        aktualizujIkoneAdmina();
         initZalogowany();
     } else {
         widokZalogowany.classList.add('ukryty');

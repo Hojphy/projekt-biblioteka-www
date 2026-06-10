@@ -4,6 +4,14 @@ function randomInt(max, min = 0) {
     return Math.floor(Math.random() * max) + min;
 }
 
+async function sha256(tekst) {
+    const kodowanyTekst = new TextEncoder().encode(tekst);
+    const bufor = await crypto.subtle.digest('SHA-256', kodowanyTekst);
+    const tablicaBajtow = Array.from(new Uint8Array(bufor));
+    const hashHex = tablicaBajtow.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
+
 // ========== Web Componenty ==========
 
 class Naglowek extends HTMLElement {
@@ -92,6 +100,28 @@ if(zmianaTrybuPrzycisk) {
     zmianaTrybuPrzycisk.addEventListener("click", zmianaTrybuClick);
     initIkonaNaglowka();
 }
+
+function aktualizujIkoneAdmina()
+{
+    const adminIkona = document.getElementById("adminIkona");
+    if(adminIkona) adminIkona.remove();
+
+    const login = localStorage.getItem("aktualnyUzytkownik");
+    if(login != "administrator") return;
+
+    const element = document.createElement("span");
+    element.classList.add("material-symbols-outlined");
+    element.classList.add("niezaznaczalne");
+    element.id = "adminIkona";
+    element.alt = "Admin";
+    element.innerHTML = `shield_person`;
+    element.addEventListener("click", () => {
+        window.location.href = "./admin.html";
+    });
+    document.getElementById("naglowekIkonyPoPrawej").appendChild(element);
+}
+
+aktualizujIkoneAdmina();
 
 // === Funkcje po kliknięciu przycisku ===
 

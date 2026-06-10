@@ -125,12 +125,6 @@
     padding-right: 5px;
 }
 
-#konto-wypozyczone-naglowek {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
 /* === Klasa pomocnicza === */
 
 .ukryty {

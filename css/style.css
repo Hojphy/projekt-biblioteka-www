@@ -11,7 +11,7 @@
     --color-grey: grey;
     --color-darkGrey: rgb(30,30,30);
     --color-silver: silver;
-    --color-lightSilver: rgb(235,235,235);
+    --color-lightSilver: rgb(210,210,210);
 
     /* Czarne */
 
@@ -44,10 +44,12 @@
     --background-sticky: var(--light-dark-whiteAlmostBlack);
     --background-navigation: var(--light-dark-whiteCharcoal);
     --background-button: var(--light-dark-WhiteAlmostCharcoal);
+    --background-button-outline: var(--light-dark-charcoalWhiteAlmost);
     --background-button-highlight: var(--light-dark-silverGreyBlack);
     --button-text: var(--light-dark-charcoalWhiteAlmost);
 
     --container: light-dark(var(--color-lightSilver),var(--color-darkGrey));
+    --darkContainer: light-dark(var(--color-silver),var(--color-charcoal));
     --outline: var(--light-dark-blackWhite);
 
     --shadow: var(--color-black);
@@ -56,6 +58,8 @@
 
     --mainText: var(--light-dark-blackWhite);
     --text: var(--light-dark-blackWhite);
+
+    --procent-jasnosci: light-dark(95%, 105%);
 }
 
 /* ========== Jasny i ciemny motyw ========== */
@@ -253,6 +257,8 @@ main.active {
 /* ========== Klasy ========== */
 .przycisk {
     background-color: var(--background-button);
+    border: 1px solid var(--background-button-outline);
+    padding: 0 5px;
     color: var(--button-text)
 }
 

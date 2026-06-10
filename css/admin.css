@@ -1,0 +1,104 @@
+#admin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+    min-height: calc(100vh - 70px);
+}
+
+.uzytkownicy, .wypozyczenia {
+    background-color: var(--container);
+    padding: 20px;
+    border-radius: 20px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#lista-uzytkownikow {
+    background-color: var(--darkContainer);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin: 15px auto 0 auto;
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.uzytkownik {
+    padding: 15px;
+    background-color: var(--darkContainer);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 15px;
+}
+
+.uzytkownik:first-child {
+    margin-top: 15px;
+}
+
+.uzytkownik:last-child {
+    margin-bottom: 15px;
+}
+
+.uzytkownik:hover {
+    background-color: light-dark(
+        color-mix(in srgb, var(--darkContainer) 80%, black),
+        color-mix(in srgb, var(--darkContainer) 80%, white)
+    );
+}
+
+.przycisk {
+    background-color: var(--background-button);
+    color: var(--button-text)
+}
+
+.przycisk:hover {
+    transition: background-color 0.1s ease-in-out;
+    background-color: var(--background-button-highlight);
+    cursor: pointer;
+}
+
+.ksiazka {
+    position: relative;
+}
+
+.przycisk-oddaj, .przycisk-pokaz {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 100;
+}
+
+.przycisk-oddaj {
+    top: 55%;
+}
+
+.przycisk-pokaz {
+    top: 30%;
+}
+
+.ksiazka:hover .przycisk-oddaj, .ksiazka:hover .przycisk-pokaz {
+  opacity: 1;
+  visibility: visible;
+}
+
+.ksiazka:hover img {
+  filter: brightness(50%);
+  transition: 0.3s;
+}
