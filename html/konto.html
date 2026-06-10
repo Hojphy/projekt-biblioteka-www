@@ -12,6 +12,7 @@
     <title>Lekturoteka</title>
 
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/konto.css">
     <script defer src="../js/script.js"></script>
     <script defer src="../js/konto.js"></script>
 
@@ -40,8 +41,48 @@
     <!-- === Konto === -->
 
     <main id="main">
-        <div id="konto">Konto</div>
+        <div id="konto">
+            <div id="widok-niezalogowany">
+                <div class="formularz-karta">
+                    <h2>Zaloguj się</h2>
+                    <input type="text" placeholder="Login lub email" id="login-input">
+                    <input type="password" placeholder="Hasło" id="haslo-input">
+                    <button id="zaloguj-btn" class="przycisk">Zaloguj</button>
+                </div>
+
+                <div class="formularz-karta">
+                    <h2>Zarejestruj się</h2>
+                    <input type="text" placeholder="Login" id="rej-login-input">
+                    <input type="password" placeholder="Hasło" id="rej-haslo-input">
+                    <button id="zarejestruj-btn" class="przycisk">Zarejestruj</button>
+                </div>
+            </div>
+
+            <div id="widok-zalogowany" class="ukryty">
+                <div class="konto-info">
+                    <h3>Konto</h3>
+                    <p id="konto-info-login"><strong>Twój login:</strong> login</p>
+                </div>
+
+                <div class="wypozyczenia">
+                    <div id="konto-wypozyczone-naglowek">
+                        <h3>Twoje wypożyczenia</h3>
+                        <p>POKAŻ WSZYSTKIE</p>
+                    </div>
+                    <div id="konto-wypozyczone" class="ksiazki_grid">
+                        <p>Brak wypożyczonych książek.</p>
+                    </div>
+                </div>
+
+                <div class="opcje-konto">
+                    <h3>Opcje konta</h3>
+                    <button id="wyloguj-btn" class="czerwony-przycisk">Wyloguj się</button>
+                    <button id="usun-konto-btn" class="czerwony-przycisk">Usuń konto</button>
+                </div>
+            </div>
+        </div>
     </main>
-    
+
+    <komponent-powiadomienia></komponent-powiadomienia>
 </body>
 </html>
