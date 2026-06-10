@@ -36,23 +36,6 @@
     margin-bottom: 15px; 
 }
 
-
-.koszykUsunZawartosc {
-    display: block;
-    padding: 8px 16px;
-    text-align: center;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    height: 40px;
-}
-.koszykUsunZawartosc:hover {
-    background-color: rgb(200,0,0);
-    cursor: pointer;
-}
-
 .koszykMain {
     display: flex;
     flex-direction: column;

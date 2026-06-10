@@ -1,10 +1,15 @@
-function koszykZapisz(ksiazki) {localStorage.setItem("koszyk", JSON.stringify(ksiazki));}
+function koszykZapisz(ksiazki) {
+    localStorage.setItem("koszyk", JSON.stringify(ksiazki));
+}
 
-function koszykPobierz() {return JSON.parse(localStorage.getItem("koszyk") || "[]");}
-const koszykKsiazki = koszykPobierz();
+function koszykPobierz() {
+    return JSON.parse(localStorage.getItem("koszyk") || "[]");
+}
 
+let koszykKsiazki;
 
 function zaladujKoszyk() {
+    koszykKsiazki = koszykPobierz();
     document.querySelectorAll(".koszykElement").forEach(element => element.remove());
     document.querySelectorAll(".koszykWypozycz").forEach(element => element.remove());
     document.getElementById("koszyk").innerHTML = "";
@@ -23,7 +28,7 @@ function zaladujKoszyk() {
 
         const usunZawartoscButton = document.createElement("button");
         usunZawartoscButton.textContent = "Usuń";
-        usunZawartoscButton.classList.add("koszykUsunZawartosc");   
+        usunZawartoscButton.classList.add("czerwony-przycisk");   
         usunZawartoscButton.addEventListener("click", () => {
             koszykKsiazki.splice(i, 1);
             koszykZapisz(koszykKsiazki);
@@ -34,26 +39,61 @@ function zaladujKoszyk() {
         });
 
         nowyDiv.appendChild(usunZawartoscButton);
-    
         document.getElementById("koszyk").appendChild(nowyDiv);
 
         
     }
 
     if(koszykKsiazki.length != 0) {
-        const wyporzyczButton = document.createElement("button");
-        wyporzyczButton.textContent = "Wypożycz";
-        wyporzyczButton.classList.add("koszykWypozycz");
-        wyporzyczButton.addEventListener("click", () => { wypozycz(); });
-        document.getElementById("main").appendChild(wyporzyczButton);
+        const wypozyczButton = document.createElement("button");
+        wypozyczButton.textContent = "Wypożycz";
+        wypozyczButton.classList.add("koszykWypozycz");
+        wypozyczButton.addEventListener("click", () => { wypozycz(); });
+        document.getElementById("main").appendChild(wypozyczButton);
     }else{
         document.getElementById("main").innerHTML += "<p class='KoszykPusty'>Twój koszyk jest pusty</p>";
     }
 }
 
-// todo: funkcja wypożyczająca książki, narazie placeholder
 function wypozycz() {
-    alert("Wypożyczono książki");
+    const stan = localStorage.getItem("zalogowany");
+    if(stan != "tak")
+    {
+        pokazPowiadomienie("Musisz się zalogować!", "blad");
+        return;
+    }
+
+    const aktualnyUzytkownik = localStorage.getItem("aktualnyUzytkownik");
+    const kluczWypozyczen = "wypozyczenia_" + aktualnyUzytkownik;
+
+    let zapisaneKsiazkiTekst = localStorage.getItem(kluczWypozyczen);
+    let listaKsiazek = [];
+
+    if (zapisaneKsiazkiTekst !== null && zapisaneKsiazkiTekst.length > 0) {
+        listaKsiazek = JSON.parse(zapisaneKsiazkiTekst);
+    }
+
+    let noweKsiazki = [];
+
+    let pomyslne = 0;
+    for (let i = 0; i < koszykKsiazki.length; i++) {
+        console.log(koszykKsiazki[i]);
+        console.log(listaKsiazek);
+        if(!listaKsiazek.some(x => x.url === koszykKsiazki[i].url))
+        {
+            noweKsiazki.push(koszykKsiazki[i]);
+            pomyslne++;
+        }
+    }
+
+    localStorage.setItem(kluczWypozyczen, JSON.stringify(listaKsiazek.concat(noweKsiazki)));
+
+    pokazPowiadomienie(`Pomyślnie wypożyczono ${pomyslne}/${koszykKsiazki.length} książek.`, "sukces");
+
+    koszykKsiazki = [];
+    koszykZapisz(koszykKsiazki);
+    zaladujKoszyk();
+
 }
 
 

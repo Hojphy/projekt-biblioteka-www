@@ -1,0 +1,138 @@
+/* === Podstrona Konto === */
+
+#main {
+    height: auto;
+}
+
+#konto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    width: 100%;
+}
+
+
+/* === Panel Niezalogowany === */
+
+#widok-niezalogowany {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.formularz-karta {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--container);
+    padding: 40px;
+    border-radius: 20px;
+    gap: 20px;
+    width: 350px;
+    align-items: center;
+}
+
+.formularz-karta h2 {
+    margin-top: 0;
+    color: var(--text);
+}
+
+.formularz-karta input {
+    width: 100%;
+    height: 50px;
+    border-radius: 50px;
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: var(--background-background);
+    color: var(--text);
+    box-sizing: border-box;
+}
+
+.formularz-karta input:focus {
+    outline: 2px solid var(--outline);
+}
+
+.formularz-karta button {
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* === Panel Zalogowany === */
+
+#widok-zalogowany {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+    min-height: calc(100vh - 70px);
+}
+
+#sekcje-konto {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+}
+
+#lewa-sekcja-konto, #prawa-sekcja-konto {
+    min-width: 320px;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.wypozyczenia, .konto-info, .opcje-konto {
+    background-color: var(--container);
+    padding: 20px;
+    border-radius: 20px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.opcje-konto {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+}
+
+.wypozyczona-ksiazka, .wypozyczona-ksiazka img {
+    max-width: 120px;
+}
+
+#konto-wypozyczone {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    width: 100%;
+    margin: 15px auto 0 auto;
+    max-height: 450px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+#konto-wypozyczone-naglowek {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* === Klasa pomocnicza === */
+
+.ukryty {
+    display: none !important;
+}

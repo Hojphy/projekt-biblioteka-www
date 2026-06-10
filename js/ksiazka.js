@@ -55,21 +55,21 @@ function ksiazkaDetale(tytul, autor, okladka, epoka, rodzaj, gatunek) {
         <nav><ul id="ksiazkaDetaleEpokaRodzajGatunek">
             <li>
                 <span class="ksiazkaDetaleGrubyTekst">Epoka:</span>
-                <a class="ksiazkaDetaleLinki" href="./wyszukiwarka.html?filter=${epoka}">
+                <a class="ksiazkaDetaleLinki" href="./wyszukiwarka.html?filter=epoki&subfilter=${epoka}">
                     ${epoka}
                 </a>
             </li>
 
             <li>
                 <span class="ksiazkaDetaleGrubyTekst">Rodzaj:</span>
-                <a class="ksiazkaDetaleLinki" href="./wyszukiwarka.html?filter=${rodzaj}">
+                <a class="ksiazkaDetaleLinki" href="./wyszukiwarka.html?filter=rodzaje&subfilter=${rodzaj}">
                     ${rodzaj}
                 </a>
             </li>
 
             <li>
                 <span class="ksiazkaDetaleGrubyTekst">Gatunek:</span>
-                <a class="ksiazkaDetaleLinki" href="./wyszukiwarka.html?filter=${gatunek}">
+                <a class="ksiazkaDetaleLinki" href="./wyszukiwarka.html?filter=gatunki&subfilter=${gatunek}">
                     ${gatunek}
                 </a>
             </li>
@@ -82,7 +82,7 @@ function ksiazkaDetale(tytul, autor, okladka, epoka, rodzaj, gatunek) {
 }
 
 function ksiazkaDodajDoKoszyka() {
-    const koszyk = koszykPobierz();
+    const koszyk = JSON.parse(localStorage.getItem("koszyk") || "[]");
     koszyk.push(ksiazkaZapisana);
-    koszykZapisz(koszyk);
+    localStorage.setItem("koszyk", JSON.stringify(koszyk));
 }

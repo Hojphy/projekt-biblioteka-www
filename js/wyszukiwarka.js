@@ -71,7 +71,7 @@ async function getFilterCategoriesJSON(filter)
 function browserElementHTMLString(img, title, author) {
     return `
         <img src="${img}"></img>
-        <div class="bookInfo">
+        <div class="ksiazkaInfo">
             <h1 class="autor">${author}</h1>
             <h2 class="tytul">${title}</h3>
         </div>
@@ -80,7 +80,7 @@ function browserElementHTMLString(img, title, author) {
 
 function filterHTMLString(name) {
     return `
-        <p class="filterName unselectable">${name}</p>
+        <p class="filterName niezaznaczalne">${name}</p>
     `;
 }
 
@@ -145,15 +145,15 @@ function initPager(resultCount)
     const totalPages = Math.ceil(resultCount / ITEMS_PER_PAGE);
 
     if (currentPage === 1) {
-        pagerPrev.classList.add("disabled");
+        pagerPrev.classList.add("wylaczone");
     } else {
-        pagerPrev.classList.remove("disabled");
+        pagerPrev.classList.remove("wylaczone");
     }
 
     if (currentPage === totalPages || totalPages <= 1) {
-        pagerNext.classList.add("disabled");
+        pagerNext.classList.add("wylaczone");
     } else {
-        pagerNext.classList.remove("disabled");
+        pagerNext.classList.remove("wylaczone");
     }
 }
 
