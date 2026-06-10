@@ -60,6 +60,7 @@ function wypozycz() {
     if(stan != "tak")
     {
         pokazPowiadomienie("Musisz się zalogować!", "blad");
+        return;
     }
 
     const aktualnyUzytkownik = localStorage.getItem("aktualnyUzytkownik");
