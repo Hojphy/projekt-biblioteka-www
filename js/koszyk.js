@@ -28,7 +28,7 @@ function zaladujKoszyk() {
 
         const usunZawartoscButton = document.createElement("button");
         usunZawartoscButton.textContent = "Usuń";
-        usunZawartoscButton.classList.add("koszykUsunZawartosc");   
+        usunZawartoscButton.classList.add("czerwony-przycisk");   
         usunZawartoscButton.addEventListener("click", () => {
             koszykKsiazki.splice(i, 1);
             koszykZapisz(koszykKsiazki);
