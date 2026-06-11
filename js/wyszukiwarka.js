@@ -100,6 +100,7 @@ function addPage(number)
     const newPage = document.createElement("li");
     newPage.innerText = number;
     newPage.classList.add("page-number");
+    newPage.classList.add("niezaznaczalne");
 
     if(number == currentPage)
         newPage.classList.add("currentPage");

@@ -3,15 +3,33 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 30px;
-    min-height: calc(100vh - 70px);
+    gap: 2rem;
+    min-height: calc(100vh - 4.375rem);
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+#admin .ksiazka:hover {
+    background-color: var(--darkContainer) !important;
+}
+
+#admin .ksiazka:hover {
+    background-color: #000000 !important; 
+}
+
+#admin .ksiazka:hover .tytul,
+#admin .ksiazka:hover .autor {
+    color: var(--color-white) !important;
+    transition: color 0.3s ease;
 }
 
 .uzytkownicy, .wypozyczenia {
     background-color: var(--container);
-    padding: 20px;
+    padding: 1.5rem;
+    border: 2px solid var(--outline);
     border-radius: 20px;
     width: 100%;
+    max-width: 800px;
     text-align: center;
     box-sizing: border-box;
 }
@@ -21,22 +39,32 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 1rem;
     width: 100%;
-    margin: 15px auto 0 auto;
-    max-height: 50vh;
+    margin: 1rem auto 0 auto;
+    max-height: 25rem;
     overflow-y: auto;
-    padding-right: 5px;
+    padding: 1rem 0.5rem 1rem 0;
 }
 
 .uzytkownik {
-    padding: 15px;
-    background-color: var(--darkContainer);
-    border-radius: 20px;
+    padding: 1rem;
+    background-color: var(--container);
+    border: 1px solid var(--outline);
+    border-radius: 15px;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
-    margin: 0 15px;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 1rem;
+}
+
+.uzytkownik p {
+    margin: 0;
+    font-weight: 600;
+    word-break: break-all;
 }
 
 .uzytkownik:first-child {
@@ -54,9 +82,12 @@
     );
 }
 
-.przycisk {
-    background-color: var(--background-button);
-    color: var(--button-text)
+.uzytkownik .przycisk {
+    height: auto !important;
+    min-height: 2.5rem;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem;
+    border-radius: 10px;
 }
 
 .przycisk:hover {
@@ -66,31 +97,86 @@
 }
 
 .ksiazka {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--darkContainer);
+    padding: 1rem;
+    border-radius: 15px;
+    border: 1px solid var(--outline);
+    position: relative; 
+    overflow: hidden;
+}
+
+.ksiazka img {
+    max-width: 100%;
+    height: auto;
+    max-height: 12rem;
+    object-fit: contain;
+    transition: filter 0.3s ease;
+}
+
+.ksiazka:hover .admin-akcje-overlay {
+    opacity: 1;
+}
+
+.admin-akcje-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(12rem + 1rem); 
+    background-color: rgba(0, 0, 0, 0.7); 
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+.ksiazka:hover img {
+    filter: brightness(40%);
 }
 
 .przycisk-oddaj, .przycisk-pokaz {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  z-index: 100;
-}
-
-.przycisk-oddaj {
-    top: 55%;
+    width: auto;
+    min-width: 100px;
+    max-width: 90%;
+    height: auto !important;
+    min-height: 2.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .przycisk-pokaz {
-    top: 30%;
+    background-color: #007bff;
+    color: white;
+}
+
+.przycisk-pokaz:hover {
+    background-color: #0056b3;
+}
+
+.przycisk-oddaj {
+    background-color: red;
+    color: white;
+}
+
+.przycisk-oddaj:hover {
+    background-color: rgb(200, 0, 0);
 }
 
 .ksiazka:hover .przycisk-oddaj, .ksiazka:hover .przycisk-pokaz {
@@ -98,7 +184,69 @@
   visibility: visible;
 }
 
-.ksiazka:hover img {
-  filter: brightness(50%);
-  transition: 0.3s;
+.ksiazka:hover img,
+.ksiazka.pokaz-mobilny img {
+    filter: brightness(40%);
+}
+
+.ksiazka:hover .admin-akcje-overlay,
+.ksiazka.pokaz-mobilny .admin-akcje-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+#admin .ksiazka:hover,
+#admin .ksiazka.pokaz-mobilny {
+    background-color: #000000 !important; 
+}
+
+#admin .ksiazka:hover .tytul,
+#admin .ksiazka:hover .autor,
+#admin .ksiazka.pokaz-mobilny .tytul,
+#admin .ksiazka.pokaz-mobilny .autor {
+    color: var(--color-white) !important;
+    transition: color 0.3s ease;
+}
+
+@media (hover: hover) {
+    .ksiazka:hover img {
+        filter: brightness(40%);
+    }
+
+    .ksiazka:hover .admin-akcje-overlay {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    #admin .ksiazka:hover {
+        background-color: #000000 !important; 
+    }
+
+    #admin .ksiazka:hover .tytul,
+    #admin .ksiazka:hover .autor {
+        color: var(--color-white) !important;
+        transition: color 0.3s ease;
+    }
+}
+
+html.wysoki-kontrast .uzytkownik,
+html.wysoki-kontrast .ksiazka {
+    border: 3px solid #FFFF00 !important;
+    background-color: #000000 !important;
+}
+
+html.wysoki-kontrast .admin-akcje-overlay {
+    background-color: #000000 !important;
+}
+
+html.wysoki-kontrast .przycisk-pokaz {
+    background-color: #00FFFF !important;
+    color: #000000 !important;
+    border: 2px solid #00FFFF !important;
+}
+
+html.wysoki-kontrast .przycisk-oddaj {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+    border: 2px solid #FFFF00 !important;
 }

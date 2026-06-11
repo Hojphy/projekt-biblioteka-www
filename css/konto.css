@@ -8,9 +8,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
-    margin-bottom: 100px;
+    margin-top: 3.125rem;
+    margin-bottom: 6.25rem;
     width: 100%;
+    box-sizing: border-box;
+    padding: 0 1rem;
 }
 
 
@@ -19,7 +21,7 @@
 #widok-niezalogowany {
     display: flex;
     flex-direction: row;
-    gap: 50px;
+    gap: 3.125rem;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
@@ -29,11 +31,14 @@
     display: flex;
     flex-direction: column;
     background-color: var(--container);
-    padding: 40px;
+    padding: 2.5rem;
+    border: 2px solid var(--outline);
     border-radius: 20px;
-    gap: 20px;
-    width: 350px;
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 22rem;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .formularz-karta h2 {
@@ -43,11 +48,12 @@
 
 .formularz-karta input {
     width: 100%;
-    height: 50px;
+    height: auto !important;
+    min-height: 3.125rem;
     border-radius: 50px;
     border: none;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
     background-color: var(--background-background);
     color: var(--text);
     box-sizing: border-box;
@@ -59,74 +65,110 @@
 
 .formularz-karta button {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 0.625rem;
     cursor: pointer;
 }
+
 
 /* === Panel Zalogowany === */
 
 #widok-zalogowany {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "info opcje"
+        "wypozyczenia opcje";
+    gap: 1.25rem;
     width: 100%;
-    gap: 30px;
-    min-height: calc(100vh - 70px);
+    max-width: 62.5rem;
+    margin: 0 auto;
+    box-sizing: border-box;
+    min-height: calc(100vh - 4.375rem);
 }
 
-#sekcje-konto {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-
-}
-
-#lewa-sekcja-konto, #prawa-sekcja-konto {
-    min-width: 320px;
-    max-width: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.konto-info {
+    grid-area: info;
+    background-color: var(--container);
+    padding: 1.25rem;
+    border: 2px solid var(--outline);
+    border-radius: 20px;
+    text-align: center;
     box-sizing: border-box;
 }
 
-.wypozyczenia, .konto-info, .opcje-konto {
+.wypozyczenia {
+    grid-area: wypozyczenia;
     background-color: var(--container);
-    padding: 20px;
+    padding: 1.25rem;
+    border: 2px solid var(--outline);
     border-radius: 20px;
-    width: 100%;
     text-align: center;
     box-sizing: border-box;
 }
 
 .opcje-konto {
+    grid-area: opcje;
+    background-color: var(--container);
+    padding: 1.25rem;
+    border: 2px solid var(--outline);
+    border-radius: 20px;
+    text-align: center;
+    box-sizing: border-box;
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    gap: 20px;
-    max-width: 600px;
+    gap: 1.25rem;
+    justify-content: center;
+    height: 100%;
 }
 
 .wypozyczona-ksiazka, .wypozyczona-ksiazka img {
-    max-width: 120px;
+    max-width: 7.5rem;
 }
 
 #konto-wypozyczone {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    gap: 0.9375rem;
     width: 100%;
-    margin: 15px auto 0 auto;
-    max-height: 450px;
+    margin: 0.9375rem auto 0 auto;
+    max-height: 28.125rem;
     overflow-y: auto;
-    padding-right: 5px;
+    padding-right: 0.3125rem;
 }
+
 
 /* === Klasa pomocnicza === */
 
 .ukryty {
     display: none !important;
+}
+
+
+/* === Responsywność dla małych ekranów (np. telefony) === */
+
+@media (max-width: 768px) {
+    #widok-zalogowany {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas:
+            "info"
+            "wypozyczenia"
+            "opcje";
+    }
+    
+    .opcje-konto {
+        height: auto;
+    }
+}
+
+
+/* === Ustawienia dla trybu Wysokiego Kontrastu === */
+
+html.wysoki-kontrast .formularz-karta,
+html.wysoki-kontrast .konto-info,
+html.wysoki-kontrast .wypozyczenia,
+html.wysoki-kontrast .opcje-konto {
+    border: 3px solid #FFFF00 !important;
+    background-color: #000000 !important;
 }

@@ -72,35 +72,58 @@ function aktualizujWypozyczenia(login) {
 
     wypozyczone.forEach(ksiazka => {
         const nowaKsiazka = document.createElement("div");
-        nowaKsiazka.classList.add("wypozyczona-ksiazka");
         nowaKsiazka.classList.add("ksiazka");
         nowaKsiazka.innerHTML = ksiazkaHTMLString(ksiazka.simple_thumb, ksiazka.title, ksiazka.author);
 
-        const oddaj = document.createElement("div");
-        oddaj.classList.add("przycisk-oddaj");
-        oddaj.innerHTML = `<button class="przycisk-oddaj">Oddaj</button>`;
-        oddaj.addEventListener("click", () => {
-            const index = wypozyczone.indexOf(ksiazka);
+        const overlay = document.createElement("div");
+        overlay.classList.add("admin-akcje-overlay");
+
+        const pokazBtn = document.createElement("button");
+        pokazBtn.classList.add("przycisk-pokaz");
+        pokazBtn.innerText = "Pokaż";
+        pokazBtn.addEventListener("click", () => {
+            window.location.href = `./ksiazka.html?tytul=${ksiazka.slug}`;
+        });
+
+        const oddajBtn = document.createElement("button");
+        oddajBtn.classList.add("przycisk-oddaj");
+        oddajBtn.innerText = "Oddaj";
+        oddajBtn.addEventListener("click", () => {
+            const index = wypozyczone.findIndex(b => b.slug === ksiazka.slug);
             if (index !== -1) {
-              wypozyczone.splice(index, 1);
+                wypozyczone.splice(index, 1);
             }
-            pokazPowiadomienie("Oddano książkę.", "sukces")
-            console.log(wypozyczone);
+            pokazPowiadomienie("Oddano książkę.", "sukces");
             localStorage.setItem(`wypozyczenia_${login}`, JSON.stringify(wypozyczone));
             aktualizujWypozyczenia(login);
         });
 
-        const pokaz = document.createElement("div");
-        pokaz.classList.add("przycisk-pokaz");
-        pokaz.innerHTML = `<button class="przycisk-pokaz">Pokaż</button>`;
-        pokaz.addEventListener("click", () => {
-            window.location.href = `./ksiazka.html?tytul=${ksiazka.slug}`;
-        });
+        overlay.appendChild(pokazBtn);
+        overlay.appendChild(oddajBtn);
+        
+        nowaKsiazka.appendChild(overlay);
 
-        nowaKsiazka.appendChild(oddaj);
-        nowaKsiazka.appendChild(pokaz);
+        nowaKsiazka.addEventListener("click", (e) => {
+            if (e.target.tagName === "BUTTON") return;
+            e.stopPropagation(); 
+            
+            document.querySelectorAll(".ksiazki_grid .ksiazka.pokaz-mobilny").forEach(otwartaKsiazka => {
+                if (otwartaKsiazka !== nowaKsiazka) {
+                    otwartaKsiazka.classList.remove("pokaz-mobilny");
+                }
+            });
+            
+            nowaKsiazka.classList.toggle("pokaz-mobilny");
+        });
+        
         wypozyczoneGrid.appendChild(nowaKsiazka);
     });
 }
 
 initStronaAdmina();
+
+document.addEventListener("click", () => {
+    document.querySelectorAll(".ksiazki_grid .ksiazka.pokaz-mobilny").forEach(otwartaKsiazka => {
+        otwartaKsiazka.classList.remove("pokaz-mobilny");
+    });
+});

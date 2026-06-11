@@ -12,6 +12,7 @@ function zaladujKoszyk() {
     koszykKsiazki = koszykPobierz();
     document.querySelectorAll(".koszykElement").forEach(element => element.remove());
     document.querySelectorAll(".koszykWypozycz").forEach(element => element.remove());
+    document.querySelectorAll(".KoszykPusty").forEach(element => element.remove());
     document.getElementById("koszyk").innerHTML = "";
     for (let i = 0; i < koszykKsiazki.length; i++) {
         const nowyDiv = document.createElement("div");
@@ -51,8 +52,11 @@ function zaladujKoszyk() {
         wypozyczButton.classList.add("koszykWypozycz");
         wypozyczButton.addEventListener("click", () => { wypozycz(); });
         document.getElementById("main").appendChild(wypozyczButton);
-    }else{
-        document.getElementById("main").innerHTML += "<p class='KoszykPusty'>Twój koszyk jest pusty</p>";
+    } else {
+        const pustyKomunikat = document.createElement("p");
+        pustyKomunikat.classList.add("KoszykPusty");
+        pustyKomunikat.textContent = "Twój koszyk jest pusty";
+        document.getElementById("main").appendChild(pustyKomunikat);
     }
 }
 

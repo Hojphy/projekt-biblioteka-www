@@ -32,10 +32,83 @@ class Naglowek extends HTMLElement {
                         <span id="koszykIkona" alt="Koszyk" class="material-symbols-outlined niezaznaczalne">shopping_basket</span>
                         <span id="kontoIkona" alt="Konto" class="material-symbols-outlined niezaznaczalne">account_circle</span>
                         <span id="zmiana-trybu" alt="Zmiana motywu" class="material-symbols-outlined niezaznaczalne"></span>
+                        <span id="accessibility-ikona" alt="Dostępność" class="material-symbols-outlined niezaznaczalne">accessibility_new</span>
                     </span>
                 </header>
+                <div id="accessibility-dropdown" class="dropdown-zawartosc">
+                    <p class="dropdown-tytul">Kontrast</p>
+                    <div class="dropdown-sekcja">
+                        <button id="kontrast-domyslny-btn" class="przycisk dropdown-przycisk">Standardowy</button>
+                        <button id="kontrast-wysoki-btn" class="przycisk dropdown-przycisk">Wysoki</button>
+                    </div>
+                    
+                    <p class="dropdown-tytul">Rozmiar czcionki</p>
+                    <div class="dropdown-sekcja">
+                        <button id="czcionka-0-btn" class="przycisk dropdown-przycisk">Normalny</button>
+                        <button id="czcionka-1-btn" class="przycisk dropdown-przycisk">Średni</button>
+                        <button id="czcionka-2-btn" class="przycisk dropdown-przycisk">Wysoki</button>
+                    </div>
+                </div>
              </div>
         `;
+        this.inicjalizujDostepnosc();
+    }
+
+    inicjalizujDostepnosc() {
+        const ikona = this.querySelector("#accessibility-ikona");
+        const dropdown = this.querySelector("#accessibility-dropdown");
+
+        ikona.addEventListener("click", (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle("pokaz-dropdown");
+        });
+
+        document.addEventListener("click", () => {
+            dropdown.classList.remove("pokaz-dropdown");
+        });
+
+        dropdown.addEventListener("click", (e) => {
+            e.stopPropagation();
+        });
+
+        const zapisanyKontrast = localStorage.getItem("kontrast") || "standard";
+        const zapisanaCzcionka = localStorage.getItem("rozmiarCzcionki") || "normalna";
+
+        this.ustawKontrast(zapisanyKontrast);
+        this.ustawRozmiarCzcionki(zapisanaCzcionka);
+
+        this.querySelector("#kontrast-domyslny-btn").addEventListener("click", () => this.ustawKontrast("standard"));
+        this.querySelector("#kontrast-wysoki-btn").addEventListener("click", () => this.ustawContrastWysoki());
+
+        this.querySelector("#czcionka-0-btn").addEventListener("click", () => this.ustawRozmiarCzcionki("normalna"));
+        this.querySelector("#czcionka-1-btn").addEventListener("click", () => this.ustawRozmiarCzcionki("duza"));
+        this.querySelector("#czcionka-2-btn").addEventListener("click", () => this.ustawRozmiarCzcionki("bardzo-duza"));
+    }
+
+    ustawKontrast(tryb) {
+        if (tryb === "wysoki") {
+            document.documentElement.classList.add("wysoki-kontrast");
+        } else {
+            document.documentElement.classList.remove("wysoki-kontrast");
+        }
+        localStorage.setItem("kontrast", tryb);
+    }
+
+    ustawContrastWysoki() {
+        this.ustawKontrast("wysoki");
+    }
+
+    ustawRozmiarCzcionki(rozmiar) {
+        document.documentElement.classList.remove("czcionka-normalna", "czcionka-duza", "czcionka-bardzo-duza");
+        
+        if (rozmiar === "duza") {
+            document.documentElement.classList.add("czcionka-duza");
+        } else if (rozmiar === "bardzo-duza") {
+            document.documentElement.classList.add("czcionka-bardzo-duza");
+        } else {
+            document.documentElement.classList.add("czcionka-normalna");
+        }
+        localStorage.setItem("rozmiarCzcionki", rozmiar);
     }
 }
 customElements.define('komponent-naglowek', Naglowek);
@@ -101,6 +174,8 @@ if(zmianaTrybuPrzycisk) {
     initIkonaNaglowka();
 }
 
+// === Funkcje po kliknięciu przycisku ===
+
 function aktualizujIkoneAdmina()
 {
     const adminIkona = document.getElementById("adminIkona");
@@ -123,7 +198,6 @@ function aktualizujIkoneAdmina()
 
 aktualizujIkoneAdmina();
 
-// === Funkcje po kliknięciu przycisku ===
 
 function menuClick() {
     nawigacja.classList.toggle("active");
@@ -147,6 +221,28 @@ function zmianaTrybuClick() {
     document.documentElement.classList.toggle("light");
     localStorage.setItem("theme", theme == "dark" ? "light" : "dark");
     initIkonaNaglowka();
+}
+
+function ustawKontrast(tryb) {
+    if (tryb === "wysoki") {
+        document.documentElement.classList.add("wysoki-kontrast");
+    } else {
+        document.documentElement.classList.remove("wysoki-kontrast");
+    }
+    localStorage.setItem("kontrast", tryb);
+}
+
+function ustawRozmiarCzcionki(rozmiar) {
+    document.documentElement.classList.remove("czcionka-normalna", "czcionka-duza", "czcionka-bardzo-duza");
+    
+    if (rozmiar === "duza") {
+        document.documentElement.classList.add("czcionka-duza");
+    } else if (rozmiar === "bardzo-duza") {
+        document.documentElement.classList.add("czcionka-bardzo-duza");
+    } else {
+        document.documentElement.classList.add("czcionka-normalna");
+    }
+    localStorage.setItem("rozmiarCzcionki", rozmiar);
 }
 
 // ========== Książki ==========
@@ -228,3 +324,28 @@ window.addEventListener("scroll", () => {
 
     ostatniScrollY = scrollY;
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+    const zapisanyKontrast = localStorage.getItem("kontrast") || "standard";
+    const zapisanaCzcionka = localStorage.getItem("rozmiarCzcionki") || "normalna";
+
+    ustawKontrast(zapisanyKontrast);
+    ustawRozmiarCzcionki(zapisanaCzcionka);
+
+    document.getElementById("kontrast-domyslny-btn")?.addEventListener("click", () => {
+        ustawKontrast("standard");
+    });
+    document.getElementById("kontrast-wysoki-btn")?.addEventListener("click", () => {
+        ustawKontrast("wysoki");
+    });
+
+    document.getElementById("czcionka-0-btn")?.addEventListener("click", () => {
+        ustawRozmiarCzcionki("normalna");
+    });
+    document.getElementById("czcionka-1-btn")?.addEventListener("click", () => {
+        ustawRozmiarCzcionki("duza");
+    });
+    document.getElementById("czcionka-2-btn")?.addEventListener("click", () => {
+        ustawRozmiarCzcionki("bardzo-duza");
+    });
+});
