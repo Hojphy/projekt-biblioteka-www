@@ -11,14 +11,14 @@ Strona biblioteki online, która umożliwia oglądanie książek z API Wolnych L
 ### Struktura plików
 - `css/` - folder wszystkich plików .css
   - `style.css` - ogólny CSS dla elementów znajdujących się na wielu podstronach
-  - `admin.css` - 
+  - `admin.css` - style podstrony administracyjnej
   - `index.css` - style strony głównej
   - `konto.css` - style podstrony konta użytkownika
   - `koszyk.css` - style podstrony koszyka
   - `ksiazka.css` - style podstrony szczegółów książki
   - `wyszukiwarka.css` - style podstrony wyszukiwarki
 - `html/` - folder wszystkich plików .html
-  - `admin.html` - 
+  - `admin.html` - podstrona dostępna dla administratora, pokazuje statystyki oto.
   - `index.html` - strona główna z polecanymi książkami
   - `konto.html` - podstrona logowania, rejestracji i zarządzania kontem
   - `koszyk.html` - podstrona koszyka z wybranymi książkami
@@ -26,7 +26,7 @@ Strona biblioteki online, która umożliwia oglądanie książek z API Wolnych L
   - `wyszukiwarka.html` - podstrona wyszukiwarki i przeglądania po filtrach
 - `js/` - folder wszystkich plików .js
   - `script.js` - JavaScript dla skryptów znajdujących się na wielu podstronach (komponenty, pobieranie danych z API, powiadomienia)
-  - `admin.js` - 
+  - `admin.js` - obsługa statystyk i administracji użytkowników 
   - `index.js` - obsługa nieskończonego scrolla na stronie głównej
   - `konto.js` - logika logowania, rejestracji i zarządzania kontem
   - `koszyk.js` - obsługa koszyka i wypożyczania książek
