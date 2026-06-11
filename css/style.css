@@ -120,7 +120,7 @@ main {
 }
 
 main.active {
-    transform: translateX(100px);
+    transform: translateX(75px);
 }
 
 /* ========== ID ========== */
@@ -152,8 +152,8 @@ main.active {
     transform: translateY(-100%);
 }
 
-#wyszukiwarka.active {transform: translateX(100px);}
-#wyszukiwarka.active.ukryty {transform: translateX(100px);}
+#wyszukiwarka.active {transform: translateX(75px);}
+#wyszukiwarka.active.ukryty {transform: translateY(-100%) translateX(75px);}
 
 #wyszukiwarka input {
     width: 50%;
@@ -220,7 +220,7 @@ main.active {
     position: fixed;
     transform: translateX(-104%); /* 104%, żeby cień był widoczny podczasz animacji ukrywania, ale nie był widoczny po */
     top: 70px;
-    width: 200px;
+    width: 150px;
     height: calc(100vh - 70px);
     background-color: var(--background-navigation);
     box-shadow: 0 -3px 6px -3px var(--shadow);
@@ -238,6 +238,7 @@ main.active {
     list-style:none;
     color: var(--text);
     font-family: "Newsreader", sans-serif;
+    font-size: 175%
 }
 
 #nawigacja nav ul li {
