@@ -192,7 +192,7 @@ main {
 }
 
 main.active {
-    transform: translateX(100px);
+    transform: translateX(75px);
 }
 
 /* ========== ID ========== */
@@ -283,6 +283,9 @@ main.active {
     transform: translateY(-100%);
 }
 
+#wyszukiwarka.active {transform: translateX(75px);}
+#wyszukiwarka.active.ukryty {transform: translateY(-100%) translateX(75px);}
+
 #wyszukiwarka input {
     min-width: 16rem;
 
@@ -363,6 +366,7 @@ main.active {
     list-style:none;
     color: var(--text);
     font-family: "Newsreader", sans-serif;
+    font-size: 175%
 }
 
 #nawigacja nav ul li {

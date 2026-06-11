@@ -198,12 +198,6 @@ function aktualizujIkoneAdmina()
 
 aktualizujIkoneAdmina();
 
-
-function menuClick() {
-    nawigacja.classList.toggle("active");
-    main.classList.toggle("active");
-}
-
 function koszykClick() {window.location.href = "./koszyk.html";}
 function kontoClick() {window.location.href = "./konto.html";}
 
@@ -349,3 +343,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ustawRozmiarCzcionki("bardzo-duza");
     });
 });
+
+function menuClick() {
+    nawigacja.classList.toggle("active");
+    main.classList.toggle("active");
+    wyszukiwarka.classList.toggle("active");
+}
