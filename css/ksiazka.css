@@ -80,7 +80,7 @@
 
 /* === Przycisk === */
 
-#ksiazkaDetaleDodajDoKoszyka {
+.ksiazkaDetaleDodajDoKoszyka {
     width: 360px;
 
     font-size: 160%;
@@ -90,6 +90,12 @@
     box-shadow: 0 0 10px var(--background-button); /* Tu jest ten glow */
 
     cursor: pointer;
+}
+
+/* === Blokowany przycisk === */
+
+#ksiazkaDetaleDodajDoKoszykaBlad {
+    cursor: not-allowed;
 }
 
 /* ========== Inne rzeczy ========== > */

@@ -118,6 +118,9 @@ function initKsiazki() {
         nowaKsiazka.classList.add("wypozyczona-ksiazka");
         nowaKsiazka.classList.add("ksiazka");
         nowaKsiazka.innerHTML = ksiazkaHTMLString(ksiazka.simple_thumb, ksiazka.title, ksiazka.author);
+        nowaKsiazka.addEventListener("click", () => {
+            window.location.href = `./ksiazka.html?tytul=${ksiazka.slug}`;
+        });
         wypozyczoneGrid.appendChild(nowaKsiazka);
     });
 }
