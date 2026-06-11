@@ -15,6 +15,12 @@ function stronaHTML()
                 <p>Brak wypożyczonych książek.</p>
             </div>
         </div>
+        <div class="statystyki">
+            <h3>Statystyki popularności książek</h3>
+            <div id="wykres-statystyk">
+                <p>Brak danych do wyświetlenia statystyk.</p>
+            </div>
+        </div>
     `;
 }
 
@@ -52,6 +58,61 @@ function initStronaAdmina()
             });
         });
     }
+
+    initStatystyki();
+}
+
+function initStatystyki() {
+    const uzytkownicyTekst = localStorage.getItem("listaUzytkownikow");
+    const uzytkownicy = uzytkownicyTekst ? JSON.parse(uzytkownicyTekst) : [];
+    const wykresKontener = document.getElementById("wykres-statystyk");
+    
+    let bazaKsiazek = {};
+    let lacznaLiczbaWypozyczeń = 0;
+    
+    uzytkownicy.forEach(uzytkownik => {
+        const wypozyczeniaTekst = localStorage.getItem(`wypozyczenia_${uzytkownik.login}`);
+        const wypozyczenia = wypozyczeniaTekst ? JSON.parse(wypozyczeniaTekst) : [];
+        
+        wypozyczenia.forEach(ksiazka => {
+            lacznaLiczbaWypozyczeń++;
+            if (bazaKsiazek[ksiazka.slug]) {
+                bazaKsiazek[ksiazka.slug].liczba++;
+            } else {
+                bazaKsiazek[ksiazka.slug] = {
+                    tytul: ksiazka.title,
+                    autor: ksiazka.author,
+                    liczba: 1
+                };
+            }
+        });
+    });
+    
+    if (lacznaLiczbaWypozyczeń === 0) {
+        wykresKontener.innerHTML = "<p>Brak danych do wyświetlenia statystyk.</p>";
+        return;
+    }
+    
+    wykresKontener.innerHTML = "";
+    
+    const posortowaneKsiazki = Object.values(bazaKsiazek).sort((a, b) => b.liczba - a.liczba);
+    
+    posortowaneKsiazki.forEach(ksiazka => {
+        const procent = ((ksiazka.liczba / lacznaLiczbaWypozyczeń) * 100).toFixed(1);
+        const wierszStatystyki = document.createElement("div");
+        wierszStatystyki.classList.add("statystyka-wiersz");
+        
+        wierszStatystyki.innerHTML = `
+            <div class="statystyka-info">
+                <span class="statystyka-tekst"><strong>${ksiazka.tytul}</strong> - ${ksiazka.autor}</span>
+                <span class="statystyka-liczby">${ksiazka.liczba} szt. (${procent}%)</span>
+            </div>
+            <div class="statystyka-pasek-tlo">
+                <div class="statystyka-pasek-procent" style="width: ${procent}%"></div>
+            </div>
+        `;
+        wykresKontener.appendChild(wierszStatystyki);
+    });
 }
 
 function aktualizujWypozyczenia(login) {
@@ -96,6 +157,7 @@ function aktualizujWypozyczenia(login) {
             pokazPowiadomienie("Oddano książkę.", "sukces");
             localStorage.setItem(`wypozyczenia_${login}`, JSON.stringify(wypozyczone));
             aktualizujWypozyczenia(login);
+            initStatystyki();
         });
 
         overlay.appendChild(pokazBtn);
