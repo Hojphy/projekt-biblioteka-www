@@ -19,3 +19,8 @@
     - pliki js dla poszczególnych podstron
 - dokumentacja.md - ta dokumentacja
 
+### Komponenty Webowe
+Podczas tworzenia stron, aby nie przepisywać kodu ze strony do strony użyto Web Components, aby stworzyć własne elemnty:
+- komponent-naglowek - jest nagłówkiem strony, razem z klikalnymi ikonkami
+- komponent-nawigacja - menu boczne strony, wysuwane przyciskiem ikonki, posiada skróty do wyszukiwarki z filtrami
+- komponent-wyszukiwarka - mała wyszukiwarka, która się ukrywa i pojawia, wciśnięcie enter przesyła na podstronę wyszukiwarka.html, przesyłając zapytanie wpisane w wyszukiwarce
