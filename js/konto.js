@@ -33,6 +33,7 @@ rejestracjaPrzycisk.addEventListener("click", async () => {
             if(element === rejestracjaLogin) rejestracjaHaslo.focus();
         } 
         else if(event.key === 'ArrowLeft') {
+            if(element.selectionStart !== 0) return;
             event.preventDefault();
             if(element === rejestracjaLogin) loginLogin.focus();
             else loginHaslo.focus();
@@ -55,6 +56,7 @@ rejestracjaPrzycisk.addEventListener("click", async () => {
             if(element === loginLogin) loginHaslo.focus();
         } 
         else if(event.key === 'ArrowRight') {
+            if(element.selectionStart !== element.value.length) return;
             event.preventDefault();
             if(element === loginLogin) rejestracjaLogin.focus();
             else rejestracjaHaslo.focus();
@@ -63,6 +65,8 @@ rejestracjaPrzycisk.addEventListener("click", async () => {
 });
 
 document.getElementById("wyloguj-btn").addEventListener("click", wylogujUzytkownika);
+
+document.getElementById("usun-konto-btn").addEventListener("click", usunKonto);
 
 async function zarejestrujPrzycisk() {
     let login = document.getElementById('rej-login-input');
@@ -193,6 +197,15 @@ function initKsiazki() {
 function wyczyscKsiazki() {
     const wypozyczoneGrid = document.getElementById("konto-wypozyczone");
     wypozyczoneGrid.innerHTML = "<p>Brak wypożyczonych książek.</p>";
+}
+
+function usunKonto() {
+    const uzytkownicy = JSON.parse(localStorage.getItem("listaUzytkownikow"));
+    const uzytkownik = localStorage.getItem("aktualnyUzytkownik");
+    const nowiUzytkownicy = uzytkownicy.filter(u => u.login !== uzytkownik);
+    localStorage.setItem("listaUzytkownikow", JSON.stringify(nowiUzytkownicy));
+    localStorage.removeItem(`wypozyczenia_${uzytkownik}`);
+    wylogujUzytkownika();
 }
 
 function initKontoAdmina() {
