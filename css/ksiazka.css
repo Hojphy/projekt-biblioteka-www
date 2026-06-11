@@ -85,6 +85,7 @@
 
     font-size: 160%;
 
+    margin-top: 20px;
     margin-bottom: 30px;
 
     box-shadow: 0 0 10px var(--background-button); /* Tu jest ten glow */

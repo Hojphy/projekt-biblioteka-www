@@ -95,10 +95,11 @@ if(zmianaTrybuPrzycisk) {
 
 // === Funkcje po kliknięciu przycisku ===
 
-function menuClick() {
-    nawigacja.classList.toggle("active");
-    main.classList.toggle("active");
-}
+// Ta funkcja została przeniesiona niżej
+// function menuClick() {
+//     nawigacja.classList.toggle("active");
+//     main.classList.toggle("active");
+// }
 
 function koszykClick() {window.location.href = "./koszyk.html";}
 function kontoClick() {window.location.href = "./konto.html";}
@@ -198,3 +199,11 @@ window.addEventListener("scroll", () => {
 
     ostatniScrollY = scrollY;
 })
+
+// === Funkcja menuClick() ===
+
+function menuClick() {
+    nawigacja.classList.toggle("active");
+    main.classList.toggle("active");
+    wyszukiwarka.classList.toggle("active");
+}
