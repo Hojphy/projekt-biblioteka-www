@@ -43,7 +43,7 @@ Strona biblioteki online, która umożliwia oglądanie książek z API Wolnych L
 ## Opis podstron
 
 ### Strona główna (`index.html`)
-Wyświetla siatkę polecanych książek ładowanych losowo z API. Zaimplementowany jest nieskończony scroll — kolejne książki (po 15 naraz) ładują się automatycznie, gdy użytkownik dotrze do dolnej krawędzi strony.
+Wyświetla siatkę polecanych książek ładowanych losowo z API. Zaimplementowany jest nieskończony scroll. Kolejne książki (po 15 naraz) ładują się automatycznie, gdy użytkownik dotrze do dolnej krawędzi strony.
 
 ### Wyszukiwarka (`wyszukiwarka.html`)
 Umożliwia wyszukiwanie książek po tytule oraz przeglądanie po filtrach: gatunkach, epokach i rodzajach. Wyniki są paginowane (15 pozycji na stronę). Parametry wyszukiwania i filtrów są przekazywane przez URL (`?zapytanie=`, `?filter=`, `?subfilter=`).
@@ -57,12 +57,15 @@ Wyświetla książki dodane do koszyka. Użytkownik może usunąć poszczególne
 ### Konto (`konto.html`)
 Zawiera formularze logowania i rejestracji dla niezalogowanych użytkowników. Po zalogowaniu wyświetla informacje o koncie oraz listę wypożyczonych książek. Dostępne są opcje wylogowania i usunięcia konta.
 
+### Admin (`admin.html`)
+Posiada funkcjonalność oddawania książek użytkowników, posiada listę użytkowników, oraz przedstawia statystyki wypożyczonych książek.
+
 ## Funkcjonalności
 
 ### System kont
 Dane użytkowników (loginy i hasła) oraz informacje o wypożyczeniach są przechowywane lokalnie w `localStorage` przeglądarki. Aktualnie zalogowany użytkownik jest identyfikowany kluczem `aktualnyUzytkownik`.
 
-> **Uwaga:** Hasła są przechowywane w postaci jawnego tekstu. System kont ma charakter demonstracyjny i nie nadaje się do wdrożenia produkcyjnego.
+> **Uwaga:** W pamięci lokalnej dostępni są wszyscy użytkownicy, hashowane hasła i ich wypożyczone książki.
 
 ### Motywy (jasny/ciemny)
 Strona obsługuje jasny i ciemny motyw. Wybór motywu jest zapisywany w `localStorage` i przywracany przy każdym wejściu na stronę.
@@ -72,3 +75,6 @@ Powtarzające się elementy interfejsu (nagłówek, nawigacja boczna, wyszukiwar
 
 ### Powiadomienia
 Funkcja `pokazPowiadomienie(wiadomosc, typ)` wyświetla animowane powiadomienia w prawym górnym rogu ekranu. Obsługiwane typy to `"sukces"` (zielony akcent) i `"blad"` (czerwony akcent). Powiadomienia znikają automatycznie po 3 sekundach.
+
+### Ustawienia dostępności
+Dostępne są ustawienia dla zwiększenia czcionki i kontrastu strony dla polepszonej czytelności strony dla osób z niepełnosprawnościami wzrokowymi.
