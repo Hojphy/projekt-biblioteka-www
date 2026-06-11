@@ -1,0 +1,335 @@
+#admin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+    min-height: calc(100vh - 4.375rem);
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+#admin .ksiazka:hover {
+    background-color: var(--darkContainer) !important;
+}
+
+#admin .ksiazka:hover {
+    background-color: #000000 !important; 
+}
+
+#admin .ksiazka:hover .tytul,
+#admin .ksiazka:hover .autor {
+    color: var(--color-white) !important;
+    transition: color 0.3s ease;
+}
+
+.uzytkownicy, .wypozyczenia {
+    background-color: var(--container);
+    padding: 1.5rem;
+    border: 2px solid var(--outline);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#lista-uzytkownikow {
+    background-color: var(--darkContainer);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin: 1rem auto 0 auto;
+    max-height: 25rem;
+    overflow-y: auto;
+    padding: 1rem 0.5rem 1rem 0;
+}
+
+.uzytkownik {
+    padding: 1rem;
+    background-color: var(--container);
+    border: 1px solid var(--outline);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 1rem;
+}
+
+.uzytkownik p {
+    margin: 0;
+    font-weight: 600;
+    word-break: break-all;
+}
+
+.uzytkownik:first-child {
+    margin-top: 15px;
+}
+
+.uzytkownik:last-child {
+    margin-bottom: 15px;
+}
+
+.uzytkownik:hover {
+    background-color: light-dark(
+        color-mix(in srgb, var(--darkContainer) 80%, black),
+        color-mix(in srgb, var(--darkContainer) 80%, white)
+    );
+}
+
+.uzytkownik .przycisk {
+    height: auto !important;
+    min-height: 2.5rem;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem;
+    border-radius: 10px;
+}
+
+.przycisk:hover {
+    transition: background-color 0.1s ease-in-out;
+    background-color: var(--background-button-highlight);
+    cursor: pointer;
+}
+
+.ksiazka {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--darkContainer);
+    padding: 1rem;
+    border-radius: 15px;
+    border: 1px solid var(--outline);
+    position: relative; 
+    overflow: hidden;
+}
+
+.ksiazka img {
+    max-width: 100%;
+    height: auto;
+    max-height: 12rem;
+    object-fit: contain;
+    transition: filter 0.3s ease;
+}
+
+.ksiazka:hover .admin-akcje-overlay {
+    opacity: 1;
+}
+
+.admin-akcje-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(12rem + 1rem); 
+    background-color: rgba(0, 0, 0, 0.7); 
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+.ksiazka:hover img {
+    filter: brightness(40%);
+}
+
+.przycisk-oddaj, .przycisk-pokaz {
+    width: auto;
+    min-width: 100px;
+    max-width: 90%;
+    height: auto !important;
+    min-height: 2.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.przycisk-pokaz {
+    background-color: #007bff;
+    color: white;
+}
+
+.przycisk-pokaz:hover {
+    background-color: #0056b3;
+}
+
+.przycisk-oddaj {
+    background-color: red;
+    color: white;
+}
+
+.przycisk-oddaj:hover {
+    background-color: rgb(200, 0, 0);
+}
+
+.ksiazka:hover .przycisk-oddaj, .ksiazka:hover .przycisk-pokaz {
+  opacity: 1;
+  visibility: visible;
+}
+
+.ksiazka:hover img,
+.ksiazka.pokaz-mobilny img {
+    filter: brightness(40%);
+}
+
+.ksiazka:hover .admin-akcje-overlay,
+.ksiazka.pokaz-mobilny .admin-akcje-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+#admin .ksiazka:hover,
+#admin .ksiazka.pokaz-mobilny {
+    background-color: #000000 !important; 
+}
+
+#admin .ksiazka:hover .tytul,
+#admin .ksiazka:hover .autor,
+#admin .ksiazka.pokaz-mobilny .tytul,
+#admin .ksiazka.pokaz-mobilny .autor {
+    color: var(--color-white) !important;
+    transition: color 0.3s ease;
+}
+
+.statystyki {
+    background-color: var(--container);
+    padding: 1.5rem;
+    border: 2px solid var(--outline);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#wykres-statystyk {
+    background-color: var(--darkContainer);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    max-height: 25rem;
+    overflow-y: auto;
+}
+
+.statystyka-wiersz {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    width: 100%;
+    text-align: left;
+}
+
+.statystyka-info {
+    font-size: 0.95rem;
+    color: var(--text);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.statystyka-tekst {
+    word-break: break-all;
+}
+
+.statystyka-liczby {
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.statystyka-pasek-tlo {
+    background-color: var(--container);
+    border: 1px solid var(--outline);
+    border-radius: 10px;
+    width: 100%;
+    height: 1.25rem;
+    overflow: hidden;
+}
+
+.statystyka-pasek-procent {
+    background-color: #007bff;
+    height: 100%;
+    border-radius: 10px 0 0 10px;
+    transition: width 0.5s ease-in-out; 
+}
+
+@media (hover: hover) {
+    .ksiazka:hover img {
+        filter: brightness(40%);
+    }
+
+    .ksiazka:hover .admin-akcje-overlay {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    #admin .ksiazka:hover {
+        background-color: #000000 !important; 
+    }
+
+    #admin .ksiazka:hover .tytul,
+    #admin .ksiazka:hover .autor {
+        color: var(--color-white) !important;
+        transition: color 0.3s ease;
+    }
+}
+
+html.wysoki-kontrast .uzytkownik,
+html.wysoki-kontrast .ksiazka {
+    border: 3px solid #FFFF00 !important;
+    background-color: #000000 !important;
+}
+
+html.wysoki-kontrast .admin-akcje-overlay {
+    background-color: #000000 !important;
+}
+
+html.wysoki-kontrast .przycisk-pokaz {
+    background-color: #00FFFF !important;
+    color: #000000 !important;
+    border: 2px solid #00FFFF !important;
+}
+
+html.wysoki-kontrast .przycisk-oddaj {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+    border: 2px solid #FFFF00 !important;
+}
+
+html.wysoki-kontrast .statystyki {
+    border: 3px solid #FFFF00 !important;
+    background-color: #000000 !important;
+}
+
+html.wysoki-contrast .statystyka-pasek-tlo {
+    border: 2px solid #FFFF00 !important;
+    background-color: #000000 !important;
+}
+
+html.wysoki-kontrast .statystyka-pasek-procent {
+    background-color: #FFFF00 !important;
+}

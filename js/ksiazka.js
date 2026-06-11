@@ -54,9 +54,9 @@ motywZmiana.addEventListener("click", () => {
 function ksiazkaDetale(tytul, autor, okladka, epoka, rodzaj, gatunek) {
     let htmlString = `
         <h3 class="tytul" id="ksiazkaDetaleTytul">${tytul}</h3>
-        <a class="ksiazkaDetaleLinki" id="ksiazkaDetaleAutor"href="./wyszukiwarka.html?filter=${autor}">
+        <span id="ksiazkaDetaleAutor">
             ${autor}
-        </a>
+        </span>
 
         <img src="${okladka}" id="ksiazkaDetaleOkladka"></img>
 
@@ -112,19 +112,9 @@ function ksiazkaDetale(tytul, autor, okladka, epoka, rodzaj, gatunek) {
 }
 
 function ksiazkaJestWypozyczona(ksiazkaUrl) {
-    for (let i = 0; i < localStorage.length; i++) {
-        const klucz = localStorage.key(i);
-        if (!klucz || !klucz.startsWith("wypozyczenia_")) continue;
-
-        const wypozyczenia = localStorage.getItem(klucz);
-        if (!wypozyczenia) continue;
-
-        const listaKsiazek = JSON.parse(wypozyczenia);
-        if (listaKsiazek.some(ksiazka => ksiazka.url === ksiazkaUrl)) {
-            return true;
-        }
-    }
-    return false;
+    const uzytkownik = localStorage.getItem("aktualnyUzytkownik") || "";
+    const wypozyczone = JSON.parse(localStorage.getItem(`wypozyczenia_${uzytkownik}`) || "[]");
+    return wypozyczone.some(ksiazka => ksiazka.url === ksiazkaUrl)
 }
 
 function ksiazkaJestWKoszyku(ksiazkaUrl) {

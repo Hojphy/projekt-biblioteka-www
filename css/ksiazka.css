@@ -1,7 +1,3 @@
-#main {
-    margin-top: 90px;
-}
-
 #ksiazkaDetale {
     display: flex;
     flex-direction: column;
@@ -14,25 +10,15 @@
 
 #ksiazkaDetaleTytul {
     font-size: 50px;
-
     max-width: 360px;
-
     margin-top: 25px;
 }
 
 #ksiazkaDetaleAutor {
     font-size: 30px;
-
     max-width: 360px;
-
     margin-top: -30px;
     margin-bottom: 30px;
-
-    color: var(--light-dark-charcoalWhiteAlmost);
-}
-
-#ksiazkaDetaleAutor:hover {
-    color: var(--background-button);
 }
 
 /* Okładka */
@@ -52,17 +38,13 @@
 #ksiazkaDetaleEpokaRodzajGatunek {
     font-size: 20px;
     margin-top: 25px;
-
     padding: 0;
-
     display: flex;
     justify-content: center;
     text-align: center;
     flex-direction: column;
     gap: 8px;
-
     list-style: none;
-
     max-width: 360px;
 }
 
@@ -82,15 +64,20 @@
 
 .ksiazkaDetaleDodajDoKoszyka {
     width: 360px;
-
     font-size: 160%;
-
-    margin-top: 20px;
-    margin-bottom: 30px;
-
+    margin-top: 30px;
+    margin-bottom: Twój koszyk  30px;
     box-shadow: 0 0 10px var(--background-button); /* Tu jest ten glow */
-
     cursor: pointer;
+}
+
+
+html.wysoki-kontrast .ksiazkaDetaleDodajDoKoszyka {
+    box-shadow: 0 0 10px #FFFF00; /* Tu jest ten glow */
+}
+
+html.wysoki-kontrast .ksiazkaDetaleGrubyTekst {
+    color: #FFFF00;
 }
 
 /* === Blokowany przycisk === */

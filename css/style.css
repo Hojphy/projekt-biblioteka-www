@@ -11,7 +11,7 @@
     --color-grey: grey;
     --color-darkGrey: rgb(30,30,30);
     --color-silver: silver;
-    --color-lightSilver: rgb(235,235,235);
+    --color-lightSilver: rgb(210,210,210);
 
     /* Czarne */
 
@@ -44,10 +44,12 @@
     --background-sticky: var(--light-dark-whiteAlmostBlack);
     --background-navigation: var(--light-dark-whiteCharcoal);
     --background-button: var(--light-dark-WhiteAlmostCharcoal);
+    --background-button-outline: var(--light-dark-charcoalWhiteAlmost);
     --background-button-highlight: var(--light-dark-silverGreyBlack);
     --button-text: var(--light-dark-charcoalWhiteAlmost);
 
     --container: light-dark(var(--color-lightSilver),var(--color-darkGrey));
+    --darkContainer: light-dark(var(--color-silver),var(--color-charcoal));
     --outline: var(--light-dark-blackWhite);
 
     --shadow: var(--color-black);
@@ -56,6 +58,8 @@
 
     --mainText: var(--light-dark-blackWhite);
     --text: var(--light-dark-blackWhite);
+
+    --procent-jasnosci: light-dark(95%, 105%);
 }
 
 /* ========== Jasny i ciemny motyw ========== */
@@ -66,6 +70,67 @@
 .dark {
     color-scheme: dark;
 }
+
+/* ========== Dostępność ========== */
+
+html.czcionka-normalna {
+    font-size: 100%;
+}
+
+html.czcionka-duza {
+    font-size: 125%;
+}
+
+html.czcionka-bardzo-duza {
+    font-size: 150%;
+}
+
+html.wysoki-kontrast {
+    color-scheme: dark;
+    
+    --background: #000000;
+    --background-background: #000000;
+    --background-sticky: #000000;
+    --background-navigation: #000000;
+    --container: #000000;
+    --darkContainer: #000000;
+    
+    --text: #FFFF00;
+    --mainText: #FFFF00;
+    --button-text: #000000;
+    
+    --background-button: #FFFF00;
+    --background-button-outline: #FFFF00;
+    --background-button-highlight: #FFFFFF;
+    
+    --outline: #FFFF00;
+    --shadow: transparent;
+}
+
+html.wysoki-kontrast a {
+    color: #00FFFF;
+    text-decoration: underline;
+}
+
+html.wysoki-kontrast .powiadomienie,
+html.wysoki-kontrast .ksiazka,
+html.wysoki-kontrast .wypozyczenia,
+html.wysoki-kontrast .konto-info,
+html.wysoki-kontrast .opcje-konto {
+    border: 3px solid #FFFF00;
+}
+
+html.wysoki-kontrast button {
+    color: var(--button-text);
+    background-color: #FFFF00;
+}
+
+html.wysoki-kontrast #wyszukiwarka input,
+html.wysoki-kontrast #wyszukiwarka input::placeholder {
+    background-color: var(--color-darkGrey);
+    color: #FFFF00;
+}
+
 
 /* ========== Elementy ========== */
 
@@ -97,7 +162,8 @@ button {
     color: var(--color-white);
     background-color: var(--background-button);
 
-    height: 50px;
+    min-height: 50px;
+    padding: 10px 20px;
     
     border: none;
     border-radius: 50px;
@@ -109,6 +175,11 @@ ul {
     margin: 0;
 }
 
+input, textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
 /* === Strona główna === */
 
 main {
@@ -117,6 +188,7 @@ main {
 
     transform: translateX(0);
     transition: transform 0.3s ease-in-out;
+    padding-top: 7rem;
 }
 
 main.active {
@@ -127,11 +199,70 @@ main.active {
 
 /* === Header === */
 
+#naglowek {
+    position: relative;
+}
+
 #naglowek header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 4.375rem;
+}
+
+#naglowek .material-symbols-outlined {
+    font-size: 1.5rem !important;
+    cursor: pointer;
+}
+
+#accessibility-ikona:hover {
+    cursor: pointer;
+}
+
+.dropdown-zawartosc {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 70px;
+    right: 25px;
+    background-color: var(--container);
+    border: 2px solid var(--outline);
+    border-radius: 15px;
+    padding: 15px;
+    width: 19rem;
+    max-width: 90vw;
+    z-index: 2000;
+    box-shadow: 0 4px 10px var(--shadow);
+    transition: opacity 0.1s ease-in-out, visibility 0.1s ease-in-out;
+}
+
+.dropdown-zawartosc.pokaz-dropdown {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown-tytul {
+    margin: 5px 0 10px 0;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+    color: var(--text);
+}
+
+.dropdown-sekcja {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.dropdown-przycisk {
+    height: 35px !important;
+    border-radius: 10px !important;
+    font-size: 0.8rem !important;
+    padding: 0 10px !important;
+    cursor: pointer;
+    width: auto !important;
 }
 
 /* === Wyszukiwarka === */
@@ -141,7 +272,7 @@ main.active {
     justify-content: center;
     align-items: center; 
     position: fixed;
-    top: 70px;
+    top: 4.375rem;
     left: 0;
     width: 100%;
     transition: transform 0.3s ease-in-out;
@@ -156,21 +287,18 @@ main.active {
 #wyszukiwarka.active.ukryty {transform: translateY(-100%) translateX(75px);}
 
 #wyszukiwarka input {
-    width: 50%;
-    min-width: 250px;
+    min-width: 16rem;
 
-    height: 50px;
+    min-height: 3.125rem;
+    padding: 1rem 1.25rem;
     
-    margin-top: 25px;
+    margin-top: 1.5rem;
     
-    border-radius: 50px;
+    border-radius: 3rem;
     border: none;
             
     box-sizing: border-box;
     text-align: left;
-
-    padding-left: 20px;
-    padding-right: 20px;
 
     background-color: var(--container);
 }
@@ -189,13 +317,13 @@ main.active {
     position: absolute;
     left: 50%;
     top: -5px;
-    transform: translateX(-50%);  
+    transform: translate(-50%, -10%);
+    font-size: 2rem;
 }
 
 #naglowekIkonyPoPrawej {
-    min-width: 85px;
     display: flex;
-    gap: 15px;
+    gap: 1rem;
 }
 
 #menu-ikona:hover {
@@ -219,9 +347,9 @@ main.active {
 #nawigacja {
     position: fixed;
     transform: translateX(-104%); /* 104%, żeby cień był widoczny podczasz animacji ukrywania, ale nie był widoczny po */
-    top: 70px;
-    width: 150px;
-    height: calc(100vh - 70px);
+    top: 4.375rem;
+    width: 200px;
+    height: calc(100vh - 4.375rem);
     background-color: var(--background-navigation);
     box-shadow: 0 -3px 6px -3px var(--shadow);
     transition: transform 0.3s ease-in-out;
@@ -257,6 +385,8 @@ main.active {
 /* ========== Klasy ========== */
 .przycisk {
     background-color: var(--background-button);
+    border: 1px solid var(--background-button-outline);
+    padding: 0 5px;
     color: var(--button-text)
 }
 
@@ -399,5 +529,50 @@ main.active {
 }
 
 
+@media (max-width: 600px) {
+    #naglowek header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0 8px !important; /* Minimalny margines od krawędzi ekranu */
+        height: 4.375rem !important;
+    }
 
-/* ========== Animacje ========== */
+    /* Wyłączenie pozycjonowania absolutnego – logo ustępuje miejsca ikonom */
+    #logo {
+        position: static !important;
+        transform: none !important;
+        font-size: 1.1rem !important; /* Zmniejszenie napisu logo */
+        margin: 0 !important;
+        white-space: nowrap !important; /* Blokuje rozbijanie logo na dwie linie */
+    }
+
+    /* Kontener na ikony po prawej stronie */
+    #naglowekIkonyPoPrawej {
+        display: flex !important;
+        gap: 2px !important; /* Bardzo mały odstęp między ikonami, aby zmieścić wszystkie 5 */
+        align-items: center !important;
+        min-width: auto !important;
+    }
+
+    /* Wymuszenie mniejszego rozmiaru dla każdej ikony oraz ewentualnego przycisku admina */
+    #naglowek header .material-symbols-outlined,
+    #naglowekIkonyPoPrawej .material-symbols-outlined,
+    #naglowekIkonyPoPrawej button,
+    #naglowekIkonyPoPrawej a {
+        font-size: 1.15rem !important; /* Zmniejszenie fizycznego rozmiaru ikon */
+        padding: 2px !important;       /* Minimalne wewnętrzne odstępy */
+        margin: 0 !important;
+        height: auto !important;
+        width: auto !important;
+        min-height: auto !important;
+    }
+    
+    /* Jeśli dynamiczny przycisk admina jest znacznikiem <button>, 
+       poniższy kod usuwa jego domyślne, wielkie tło i ramki */
+    #naglowekIkonyPoPrawej button {
+        background: transparent !important;
+        border: none !important;
+        color: inherit !important;
+    }
+}

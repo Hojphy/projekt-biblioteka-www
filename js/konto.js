@@ -1,11 +1,74 @@
 const widokNiezalogowany = document.getElementById('widok-niezalogowany');
 const widokZalogowany = document.getElementById('widok-zalogowany');
 
-document.getElementById('zarejestruj-btn').addEventListener('click', function() {
-    let login = document.getElementById('rej-login-input').value;
-    let haslo = document.getElementById('rej-haslo-input').value;
 
-    if (login === "" || haslo === "") {
+const loginLogin = document.getElementById('login-input');
+const loginHaslo = document.getElementById('haslo-input');
+const loginPrzycisk = document.getElementById('zaloguj-btn');
+
+const rejestracjaLogin = document.getElementById('rej-login-input');
+const rejestracjaHaslo = document.getElementById('rej-haslo-input');
+const rejestracjaPrzycisk = document.getElementById('zarejestruj-btn');
+
+loginPrzycisk.addEventListener("click", async () => {
+    await zalogujPrzycisk();
+});
+
+rejestracjaPrzycisk.addEventListener("click", async () => {
+    await zarejestrujPrzycisk();
+});
+
+[rejestracjaLogin, rejestracjaHaslo].forEach(element => {
+    element.addEventListener('keydown', async (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            await zarejestrujPrzycisk();
+        }
+        else if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            if(element === rejestracjaHaslo) rejestracjaLogin.focus();
+        } 
+        else if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            if(element === rejestracjaLogin) rejestracjaHaslo.focus();
+        } 
+        else if(event.key === 'ArrowLeft') {
+            event.preventDefault();
+            if(element === rejestracjaLogin) loginLogin.focus();
+            else loginHaslo.focus();
+        }
+    });
+});
+
+[loginLogin, loginHaslo].forEach(element => {
+    element.addEventListener('keydown', async (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            await zalogujPrzycisk();
+        }
+        else if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            if(element === loginHaslo) loginLogin.focus();
+        } 
+        else if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            if(element === loginLogin) loginHaslo.focus();
+        } 
+        else if(event.key === 'ArrowRight') {
+            event.preventDefault();
+            if(element === loginLogin) rejestracjaLogin.focus();
+            else rejestracjaHaslo.focus();
+        }
+    });
+});
+
+document.getElementById("wyloguj-btn").addEventListener("click", wylogujUzytkownika);
+
+async function zarejestrujPrzycisk() {
+    let login = document.getElementById('rej-login-input');
+    let haslo = document.getElementById('rej-haslo-input');
+
+    if (login.value === "" || haslo.value === "") {
         pokazPowiadomienie("Wypełnij wszystkie pola.", "blad");
         return;
     }
@@ -18,15 +81,17 @@ document.getElementById('zarejestruj-btn').addEventListener('click', function() 
     }
 
     for (let i = 0; i < uzytkownicy.length; i++) {
-        if (uzytkownicy[i].login === login) {
+        if (uzytkownicy[i].login === login.value) {
             pokazPowiadomienie("Taki login jest juz zajęty.", "blad");
             return;
         }
     }
 
+    const hasloHash = await sha256(haslo.value);
+
     let nowyUzytkownik = {
-        login: login,
-        haslo: haslo
+        login: login.value,
+        haslo: hasloHash.toUpperCase()
     };
     uzytkownicy.push(nowyUzytkownik);
 
@@ -34,26 +99,28 @@ document.getElementById('zarejestruj-btn').addEventListener('click', function() 
     
     pokazPowiadomienie("Konto utworzone. Możesz się teraz zalogować.", "sukces");
     
-    login = "";
-    haslo = "";
-});
+    login.value = "";
+    haslo.value = "";
+}
 
-document.getElementById('zaloguj-btn').addEventListener('click', function() {
+async function zalogujPrzycisk() {
     let loginWpisany = document.getElementById('login-input');
     let hasloWpisane = document.getElementById('haslo-input');
 
     let uzytkownicyTekst = localStorage.getItem("listaUzytkownikow");
     
     if (uzytkownicyTekst === null) {
-        pokazPowiadomienie("Brak zarejestrowanych kont. Najpierw się zarejestruj.", "blad");
+        pokazPowiadomienie("Błędny login lub hasło.", "blad");
+        localStorage.setItem("listaUzytkownikow", JSON.stringify([]));
         return;
     }
 
     let uzytkownicy = JSON.parse(uzytkownicyTekst);
     let czyPoprawneDane = false;
 
+    const hasloHash = await sha256(hasloWpisane.value);
     for (let i = 0; i < uzytkownicy.length; i++) {
-        if (uzytkownicy[i].login === loginWpisany.value && uzytkownicy[i].haslo === hasloWpisane.value) {
+        if (uzytkownicy[i].login === loginWpisany.value && uzytkownicy[i].haslo.toUpperCase() === hasloHash.toUpperCase()) {
             czyPoprawneDane = true;
             break;
         }
@@ -64,18 +131,14 @@ document.getElementById('zaloguj-btn').addEventListener('click', function() {
         return;
     }
 
-    localStorage.setItem("zalogowany", "tak");
-    localStorage.setItem("aktualnyUzytkownik", loginWpisany.value);
-    
+    zalogujUzytkownika(loginWpisany.value);
     loginWpisany.value = "";
     hasloWpisane.value = "";
-    aktualizujWidokKonta(); 
-});
+}
 
-document.getElementById("wyloguj-btn").addEventListener("click", wylogujUzytkownika);
-
-function zalogujUzytkownika() {
+function zalogujUzytkownika(login) {
     localStorage.setItem("zalogowany", "tak");
+    localStorage.setItem("aktualnyUzytkownik", login);
     aktualizujWidokKonta();
 }
 
@@ -84,11 +147,13 @@ function wylogujUzytkownika() {
     localStorage.setItem("aktualnyUzytkownik", "");
     wyczyscKsiazki();
     aktualizujWidokKonta();
+    aktualizujIkoneAdmina();
 }
 
 function aktualizujWidokKonta() {
     const stan = localStorage.getItem("zalogowany");
     if (stan === "tak") {
+        aktualizujIkoneAdmina();
         initZalogowany();
     } else {
         widokZalogowany.classList.add('ukryty');
@@ -107,13 +172,13 @@ function initZalogowany() {
 
 function initKsiazki() {
     const login = localStorage.getItem("aktualnyUzytkownik");
-    const wypozyczone = localStorage.getItem(`wypozyczenia_${login}`);
+    const wypozyczone = JSON.parse(localStorage.getItem(`wypozyczenia_${login}`));
     const wypozyczoneGrid = document.getElementById("konto-wypozyczone");
 
     if(wypozyczone === null || wypozyczone.length === 0) return;
 
     wypozyczoneGrid.innerHTML = "";
-    JSON.parse(wypozyczone).forEach(ksiazka => {
+    wypozyczone.forEach(ksiazka => {
         const nowaKsiazka = document.createElement("div");
         nowaKsiazka.classList.add("wypozyczona-ksiazka");
         nowaKsiazka.classList.add("ksiazka");
@@ -130,5 +195,20 @@ function wyczyscKsiazki() {
     wypozyczoneGrid.innerHTML = "<p>Brak wypożyczonych książek.</p>";
 }
 
+function initKontoAdmina() {
+    let uzytkownicy = JSON.parse(localStorage.getItem("listaUzytkownikow"));
+    if(uzytkownicy === null) uzytkownicy = [];
 
+    if(!uzytkownicy.some(u => u.login === "administrator"))
+    {
+        let admin = {
+            login: "administrator",
+            haslo: "ABE31FE1A2113E7E8BF174164515802806D388CF4F394CCEACE7341A182271AB"
+        };
+        uzytkownicy.push(admin);
+    }
+    localStorage.setItem("listaUzytkownikow", JSON.stringify(uzytkownicy));
+}
+
+initKontoAdmina();
 aktualizujWidokKonta();
