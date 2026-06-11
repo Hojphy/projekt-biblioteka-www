@@ -152,6 +152,9 @@ main.active {
     transform: translateY(-100%);
 }
 
+#wyszukiwarka.active {transform: translateX(100px);}
+#wyszukiwarka.active.ukryty {transform: translateX(100px);}
+
 #wyszukiwarka input {
     width: 50%;
     min-width: 250px;
